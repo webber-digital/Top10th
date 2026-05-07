@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<title>Top10th | Smart Learning</title>
+<title>Top10th | Smart Study Platform</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 
@@ -32,14 +34,13 @@ background-image:
 linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
 linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
 background-size:40px 40px;
-z-index:-3;
+z-index:-2;
 }
 
 .glass{
 background:rgba(255,255,255,0.06);
 backdrop-filter:blur(18px);
 border:1px solid rgba(255,255,255,0.08);
-box-shadow:0 0 25px rgba(56,189,248,0.08);
 }
 
 .gradient{
@@ -53,9 +54,9 @@ background:linear-gradient(90deg,#38BDF8,#7C3AED);
 padding:14px 28px;
 border-radius:999px;
 font-weight:600;
-transition:0.3s;
-border:none;
 cursor:pointer;
+border:none;
+transition:0.3s;
 }
 
 .btn-main:hover{
@@ -65,7 +66,7 @@ transform:scale(1.05);
 .btn-outline{
 padding:14px 28px;
 border-radius:999px;
-border:1px solid rgba(255,255,255,0.15);
+border:1px solid rgba(255,255,255,0.12);
 background:rgba(255,255,255,0.03);
 cursor:pointer;
 }
@@ -76,8 +77,8 @@ cursor:pointer;
 }
 
 .answer:hover{
-transform:scale(1.02);
 background:rgba(255,255,255,0.1);
+transform:scale(1.02);
 }
 
 .progress{
@@ -111,7 +112,7 @@ outline:none;
 Top10th
 </h1>
 
-<div class="flex items-center gap-3">
+<div class="flex gap-3 items-center">
 
 <select id="languageToggle"
 class="bg-black/40 border border-white/10 px-4 py-2 rounded-xl">
@@ -150,7 +151,7 @@ Welcome to <span class="gradient">Top10th</span>
 </h2>
 
 <p class="text-gray-400 mb-8">
-Study smarter and save your progress.
+75 Questions + Hindi/English Learning
 </p>
 
 <div class="space-y-4">
@@ -184,6 +185,10 @@ Create Account
 Login
 </button>
 
+<button onclick="guestMode()" class="btn-outline w-full">
+Continue as Guest
+</button>
+
 </div>
 
 </div>
@@ -199,7 +204,7 @@ Login
 <section class="min-h-screen flex flex-col justify-center items-center text-center px-6">
 
 <div class="glass px-4 py-2 rounded-full text-sm mb-6">
-🔥 Modern Learning Platform
+🔥 India's Modern Study Platform
 </div>
 
 <h1 class="text-6xl font-extrabold mb-6">
@@ -207,7 +212,7 @@ Study <span class="gradient">Smarter</span>
 </h1>
 
 <p class="text-gray-400 max-w-2xl mb-10 text-lg">
-75 Important Questions with bilingual learning system.
+Bilingual MCQ system with leaderboard and XP tracking.
 </p>
 
 <div class="grid md:grid-cols-4 gap-6 mt-10 w-full max-w-6xl">
@@ -317,55 +322,27 @@ class="max-w-4xl mx-auto space-y-6"></div>
 
 </div>
 
-<script type="module">
+<script>
 
-/* FIREBASE */
+/* =========================
+SUPABASE
+========================= */
 
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
+const SUPABASE_URL =
+"https://ncmtvfamysifjjkcszuw.supabase.co";
 
-import {
-getAuth,
-createUserWithEmailAndPassword,
-signInWithEmailAndPassword,
-signOut,
-onAuthStateChanged
-}
-from "https://www.gstatic.com/firebasejs/12.12.1/firebase-auth.js";
+const SUPABASE_KEY =
+"sb_publishable_Z4pmzCeIXWNxnXuseaP8HQ_LJTLnY1P";
 
-import {
-getFirestore,
-doc,
-setDoc,
-getDoc,
-updateDoc,
-collection,
-query,
-orderBy,
-limit,
-getDocs
-}
-from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";
+const supabase =
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
 
-/* CONFIG */
-
-const firebaseConfig = {
-apiKey: "AIzaSyDqz49BhXp6Q_Z7en5oLc7_W3Yz2UtTF74",
-authDomain: "top10th-f8fd5.firebaseapp.com",
-projectId: "top10th-f8fd5",
-storageBucket: "top10th-f8fd5.firebasestorage.app",
-messagingSenderId: "333453848720",
-appId: "1:333453848720:web:29a45710bbd183d511a815",
-measurementId: "G-X5YZT1WVLQ"
-};
-
-const app = initializeApp(firebaseConfig);
-
-const auth = getAuth(app);
-
-const db = getFirestore(app);
-
-/* VARIABLES */
+/* =========================
+VARIABLES
+========================= */
 
 let currentLanguage = "en";
 
@@ -377,9 +354,13 @@ let solved = 0;
 
 let correct = 0;
 
+let isGuest = false;
+
 let filteredQuestions = [];
 
-/* LANGUAGE */
+/* =========================
+LANGUAGE
+========================= */
 
 document.getElementById("languageToggle")
 .addEventListener("change",(e)=>{
@@ -390,11 +371,11 @@ loadQuestion();
 
 });
 
-/* QUESTIONS */
+/* =========================
+QUESTIONS
+========================= */
 
-const questions = [
-
-/* MATH */
+const baseQuestions = [
 
 {
 subject:"Math",
@@ -424,26 +405,6 @@ answer:"9"
 },
 
 {
-subject:"Math",
-question_en:"12 ÷ 3 = ?",
-question_hi:"12 ÷ 3 कितना होता है?",
-options_en:["2","3","4","5"],
-options_hi:["2","3","4","5"],
-answer:"4"
-},
-
-{
-subject:"Math",
-question_en:"50% of 200?",
-question_hi:"200 का 50% कितना है?",
-options_en:["50","100","150","200"],
-options_hi:["50","100","150","200"],
-answer:"100"
-},
-
-/* SCIENCE */
-
-{
 subject:"Science",
 question_en:"Formula of water?",
 question_hi:"पानी का सूत्र क्या है?",
@@ -462,92 +423,61 @@ answer:"Star"
 },
 
 {
-subject:"Science",
-question_en:"Plants absorb?",
-question_hi:"पौधे क्या लेते हैं?",
-options_en:["Oxygen","Carbon Dioxide","Hydrogen","Nitrogen"],
-options_hi:["ऑक्सीजन","कार्बन डाइऑक्साइड","हाइड्रोजन","नाइट्रोजन"],
-answer:"Carbon Dioxide"
-},
-
-{
-subject:"Science",
-question_en:"Human heart chambers?",
-question_hi:"मानव हृदय में कितने कक्ष होते हैं?",
-options_en:["2","3","4","5"],
-options_hi:["2","3","4","5"],
-answer:"4"
-},
-
-{
-subject:"Science",
-question_en:"Boiling point of water?",
-question_hi:"पानी का क्वथनांक क्या है?",
-options_en:["50°C","100°C","150°C","200°C"],
-options_hi:["50°C","100°C","150°C","200°C"],
-answer:"100°C"
-},
-
-/* ENGLISH */
-
-{
 subject:"English",
 question_en:"Synonym of Happy?",
 question_hi:"Happy का समानार्थी शब्द क्या है?",
 options_en:["Sad","Joyful","Weak","Angry"],
 options_hi:["उदास","खुश","कमज़ोर","गुस्सा"],
 answer:"Joyful"
-},
-
-{
-subject:"English",
-question_en:"Past tense of Go?",
-question_hi:"Go का past tense क्या है?",
-options_en:["Goed","Gone","Went","Going"],
-options_hi:["Goed","Gone","Went","Going"],
-answer:"Went"
-},
-
-{
-subject:"English",
-question_en:"Choose noun.",
-question_hi:"संज्ञा चुनें।",
-options_en:["Run","School","Quickly","Beautiful"],
-options_hi:["Run","School","Quickly","Beautiful"],
-answer:"School"
-},
-
-{
-subject:"English",
-question_en:"Antonym of Big?",
-question_hi:"Big का विलोम शब्द?",
-options_en:["Huge","Large","Small","Tall"],
-options_hi:["विशाल","बड़ा","छोटा","लंबा"],
-answer:"Small"
-},
-
-{
-subject:"English",
-question_en:"Correct spelling?",
-question_hi:"सही spelling चुनें।",
-options_en:["Beautifull","Beautiful","Beatiful","Beautifal"],
-options_hi:["Beautifull","Beautiful","Beatiful","Beautifal"],
-answer:"Beautiful"
 }
 
 ];
 
-/* DUPLICATE TO 75 */
+/* MAKE 75 QUESTIONS */
+
+const questions = [];
 
 while(questions.length < 75){
 
-questions.push(...questions.slice(0,5));
+questions.push(...baseQuestions);
 
 }
 
 filteredQuestions = [...questions];
 
-/* SIGNUP */
+/* =========================
+SHOW APP
+========================= */
+
+function showApp(){
+
+document.getElementById("authSection")
+.style.display = "none";
+
+document.getElementById("app")
+.classList.remove("hidden");
+
+}
+
+/* =========================
+GUEST MODE
+========================= */
+
+window.guestMode = function(){
+
+isGuest = true;
+
+showApp();
+
+loadQuestion();
+
+loadLeaderboard();
+
+}
+
+/* =========================
+SIGNUP
+========================= */
 
 window.signup = async function(){
 
@@ -560,36 +490,42 @@ document.getElementById("email").value;
 const password =
 document.getElementById("password").value;
 
-try{
+const { data, error } =
+await supabase.auth.signUp({
 
-const res =
-await createUserWithEmailAndPassword(
-auth,
 email,
 password
-);
 
-await setDoc(doc(db,"users",res.user.uid),{
+});
 
-name,
+if(error){
+
+alert(error.message);
+
+return;
+
+}
+
+await supabase
+.from("users")
+.insert([{
+
+id:data.user.id,
+name:name,
 xp:0,
 solved:0,
 correct:0,
 streak:1
 
-});
+}]);
 
-alert("Account Created");
-
-}catch(err){
-
-alert(err.message);
+alert("Account Created ✅");
 
 }
 
-}
-
-/* LOGIN */
+/* =========================
+LOGIN
+========================= */
 
 window.login = async function(){
 
@@ -599,46 +535,64 @@ document.getElementById("email").value;
 const password =
 document.getElementById("password").value;
 
-try{
+const { error } =
+await supabase.auth.signInWithPassword({
 
-await signInWithEmailAndPassword(
-auth,
 email,
 password
-);
 
-}catch(err){
+});
 
-alert(err.message);
+if(error){
+
+alert(error.message);
+
+}else{
+
+location.reload();
 
 }
 
 }
 
-/* LOGOUT */
+/* =========================
+LOGOUT
+========================= */
 
 window.logout = async function(){
 
-await signOut(auth);
+await supabase.auth.signOut();
+
+location.reload();
 
 }
 
-/* AUTH STATE */
+/* =========================
+SESSION
+========================= */
 
-onAuthStateChanged(auth, async(user)=>{
+async function checkUser(){
 
-if(user){
+const {
+data:{session}
+}
+= await supabase.auth.getSession();
 
-document.getElementById("authSection")
-.classList.add("hidden");
+if(session){
 
-document.getElementById("app")
-.classList.remove("hidden");
+showApp();
 
-const snap =
-await getDoc(doc(db,"users",user.uid));
+document.getElementById("navUser")
+.innerText = session.user.email;
 
-const data = snap.data();
+const { data } =
+await supabase
+.from("users")
+.select("*")
+.eq("id",session.user.id)
+.single();
+
+if(data){
 
 xp = data.xp || 0;
 
@@ -648,23 +602,21 @@ correct = data.correct || 0;
 
 updateUI(data);
 
+}
+
 loadQuestion();
 
 loadLeaderboard();
 
-}else{
-
-document.getElementById("authSection")
-.classList.remove("hidden");
-
-document.getElementById("app")
-.classList.add("hidden");
+}
 
 }
 
-});
+checkUser();
 
-/* UPDATE UI */
+/* =========================
+UPDATE UI
+========================= */
 
 function updateUI(data){
 
@@ -672,9 +624,6 @@ const accuracy =
 solved === 0
 ? 0
 : Math.floor((correct/solved)*100);
-
-document.getElementById("navUser")
-.innerText = data.name;
 
 document.getElementById("xp")
 .innerText = xp;
@@ -690,13 +639,15 @@ document.getElementById("streak")
 
 }
 
-/* LOAD QUESTION */
+/* =========================
+LOAD QUESTION
+========================= */
 
 function loadQuestion(){
 
 if(currentQuestion >= filteredQuestions.length){
 
-alert("Quiz Completed");
+alert("Quiz Completed 🎉");
 
 currentQuestion = 0;
 
@@ -752,7 +703,9 @@ answers.appendChild(div);
 
 }
 
-/* CHECK ANSWER */
+/* =========================
+CHECK ANSWER
+========================= */
 
 async function checkAnswer(answer){
 
@@ -780,18 +733,27 @@ alert("Wrong ❌");
 
 }
 
-const user = auth.currentUser;
+if(!isGuest){
 
-await updateDoc(doc(db,"users",user.uid),{
+const {
+data:{session}
+}
+= await supabase.auth.getSession();
+
+await supabase
+.from("users")
+.update({
 
 xp,
 solved,
 correct
 
-});
+})
+.eq("id",session.user.id);
+
+}
 
 updateUI({
-name:user.email,
 streak:1
 });
 
@@ -803,7 +765,9 @@ loadLeaderboard();
 
 }
 
-/* FILTER */
+/* =========================
+FILTER
+========================= */
 
 window.filterQuestions = function(subject){
 
@@ -824,7 +788,9 @@ loadQuestion();
 
 }
 
-/* LEADERBOARD */
+/* =========================
+LEADERBOARD
+========================= */
 
 async function loadLeaderboard(){
 
@@ -833,21 +799,18 @@ document.getElementById("leaderboard");
 
 leaderboard.innerHTML = "";
 
-const q =
-query(
-collection(db,"users"),
-orderBy("xp","desc"),
-limit(10)
-);
+const { data } =
+await supabase
+.from("users")
+.select("*")
+.order("xp",{ascending:false})
+.limit(10);
 
-const querySnapshot =
-await getDocs(q);
+if(!data) return;
 
 let rank = 1;
 
-querySnapshot.forEach((docSnap)=>{
-
-const user = docSnap.data();
+data.forEach(user=>{
 
 leaderboard.innerHTML += `
 
@@ -887,7 +850,9 @@ rank++;
 
 }
 
-/* TIMER */
+/* =========================
+TIMER
+========================= */
 
 let time = 30;
 
@@ -919,4 +884,4 @@ loadQuestion();
 </script>
 
 </body>
-  </html>
+</html>
