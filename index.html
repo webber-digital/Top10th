@@ -2,18 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Top10th | Smart Study Platform</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
-
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <style>
-
 *{
 margin:0;
 padding:0;
@@ -27,6 +22,15 @@ color:white;
 overflow-x:hidden;
 }
 
+body::-webkit-scrollbar{
+width:6px;
+}
+
+body::-webkit-scrollbar-thumb{
+background:#7c3aed;
+border-radius:999px;
+}
+
 .bg-grid{
 position:fixed;
 inset:0;
@@ -34,13 +38,45 @@ background-image:
 linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
 linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
 background-size:40px 40px;
+z-index:-3;
+}
+
+.orb{
+position:fixed;
+border-radius:50%;
+filter:blur(90px);
 z-index:-2;
+opacity:0.2;
+animation:float 8s infinite ease-in-out;
+}
+
+.orb1{
+width:300px;
+height:300px;
+background:#38bdf8;
+top:-100px;
+left:-100px;
+}
+
+.orb2{
+width:280px;
+height:280px;
+background:#7c3aed;
+bottom:-100px;
+right:-100px;
+}
+
+@keyframes float{
+0%{transform:translateY(0px)}
+50%{transform:translateY(-20px)}
+100%{transform:translateY(0px)}
 }
 
 .glass{
 background:rgba(255,255,255,0.06);
 backdrop-filter:blur(18px);
 border:1px solid rgba(255,255,255,0.08);
+box-shadow:0 0 30px rgba(0,0,0,0.2);
 }
 
 .gradient{
@@ -54,13 +90,13 @@ background:linear-gradient(90deg,#38BDF8,#7C3AED);
 padding:14px 28px;
 border-radius:999px;
 font-weight:600;
-cursor:pointer;
 border:none;
+cursor:pointer;
 transition:0.3s;
 }
 
 .btn-main:hover{
-transform:scale(1.05);
+transform:scale(1.04);
 }
 
 .btn-outline{
@@ -68,7 +104,13 @@ padding:14px 28px;
 border-radius:999px;
 border:1px solid rgba(255,255,255,0.12);
 background:rgba(255,255,255,0.03);
+color:white;
 cursor:pointer;
+transition:0.3s;
+}
+
+.btn-outline:hover{
+background:rgba(255,255,255,0.08);
 }
 
 .answer{
@@ -78,7 +120,7 @@ cursor:pointer;
 
 .answer:hover{
 background:rgba(255,255,255,0.1);
-transform:scale(1.02);
+transform:translateY(-3px);
 }
 
 .progress{
@@ -97,61 +139,97 @@ input,select{
 outline:none;
 }
 
+.fade{
+animation:fade 1s ease;
+}
+
+@keyframes fade{
+from{
+opacity:0;
+transform:translateY(30px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+@media(max-width:768px){
+.nav-wrap{
+flex-direction:column;
+gap:14px;
+padding-top:20px;
+padding-bottom:20px;
+}
+
+.hero-title{
+font-size:52px;
+line-height:1.1;
+}
+
+.stats-grid{
+grid-template-columns:1fr 1fr;
+}
+}
 </style>
 </head>
 
 <body>
 
 <div class="bg-grid"></div>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
 
-<!-- NAVBAR -->
+<nav class="fixed top-0 w-full z-50 glass px-6 py-4">
 
-<nav class="fixed top-0 w-full z-50 glass px-6 py-4 flex justify-between items-center">
+<div class="max-w-7xl mx-auto flex justify-between items-center nav-wrap gap-4 flex-wrap">
 
-<h1 class="text-2xl font-bold gradient">
+<h1 class="text-3xl font-extrabold gradient">
 Top10th
 </h1>
 
-<div class="flex gap-3 items-center">
+<div class="flex items-center gap-3 flex-wrap justify-center">
 
 <select id="languageToggle"
-class="bg-black/40 border border-white/10 px-4 py-2 rounded-xl">
-
-<option value="en">
-English
-</option>
-
-<option value="hi">
-हिंदी
-</option>
-
+class="bg-black/40 border border-white/10 px-4 py-3 rounded-2xl">
+<option value="en">English</option>
+<option value="hi">हिंदी</option>
 </select>
 
-<p id="navUser" class="text-sm text-gray-300">
+<p id="navUser" class="text-sm text-gray-300 px-3">
 Guest
 </p>
 
-<button onclick="logout()" class="btn-outline text-sm">
+<button
+id="logoutBtn"
+onclick="logout()"
+class="btn-outline hidden text-sm px-5 py-3">
 Logout
 </button>
 
 </div>
 
+</div>
+
 </nav>
 
-<!-- AUTH -->
-
 <section id="authSection"
-class="min-h-screen flex items-center justify-center px-6">
+class="min-h-screen flex items-center justify-center px-6 pt-32 pb-20 fade">
 
-<div class="glass max-w-md w-full rounded-3xl p-8">
+<div class="glass max-w-md w-full rounded-[35px] p-8">
 
-<h2 class="text-4xl font-bold mb-4">
-Welcome to <span class="gradient">Top10th</span>
+<div class="inline-block px-4 py-2 rounded-full bg-sky-400/20 text-sky-300 text-sm mb-5">
+🚀 AI Powered Learning
+</div>
+
+<h2 class="text-5xl font-extrabold mb-4 leading-tight">
+Welcome to
+<span class="gradient">Top10th</span>
 </h2>
 
 <p class="text-gray-400 mb-8">
-75 Questions + Hindi/English Learning
+75 bilingual questions + XP leaderboard system.
 </p>
 
 <div class="space-y-4">
@@ -195,68 +273,55 @@ Continue as Guest
 
 </section>
 
-<!-- APP -->
+<div id="app" class="hidden fade">
 
-<div id="app" class="hidden">
-
-<!-- HERO -->
-
-<section class="min-h-screen flex flex-col justify-center items-center text-center px-6">
+<section class="min-h-screen flex flex-col justify-center items-center text-center px-6 pt-36 pb-20">
 
 <div class="glass px-4 py-2 rounded-full text-sm mb-6">
-🔥 India's Modern Study Platform
+🔥 India's Futuristic Study Platform
 </div>
 
-<h1 class="text-6xl font-extrabold mb-6">
-Study <span class="gradient">Smarter</span>
+<h1 class="hero-title text-7xl font-extrabold mb-6 leading-tight">
+Study
+<span class="gradient">Smarter</span>
 </h1>
 
-<p class="text-gray-400 max-w-2xl mb-10 text-lg">
-Bilingual MCQ system with leaderboard and XP tracking.
+<p class="text-gray-400 max-w-2xl mb-12 text-lg">
+Practice smart MCQs with Hindi + English mode, leaderboard, XP and timer system.
 </p>
 
-<div class="grid md:grid-cols-4 gap-6 mt-10 w-full max-w-6xl">
+<div class="stats-grid grid md:grid-cols-4 gap-6 w-full max-w-6xl">
 
-<div class="glass rounded-3xl p-6">
+<div class="glass rounded-3xl p-6 text-left">
 <p class="text-gray-400 mb-2">XP</p>
-<h2 id="xp" class="text-4xl font-bold gradient">
-0
-</h2>
+<h2 id="xp" class="text-4xl font-bold gradient">0</h2>
 </div>
 
-<div class="glass rounded-3xl p-6">
+<div class="glass rounded-3xl p-6 text-left">
 <p class="text-gray-400 mb-2">Solved</p>
-<h2 id="solved" class="text-4xl font-bold gradient">
-0
-</h2>
+<h2 id="solved" class="text-4xl font-bold gradient">0</h2>
 </div>
 
-<div class="glass rounded-3xl p-6">
+<div class="glass rounded-3xl p-6 text-left">
 <p class="text-gray-400 mb-2">Accuracy</p>
-<h2 id="accuracy" class="text-4xl font-bold gradient">
-0%
-</h2>
+<h2 id="accuracy" class="text-4xl font-bold gradient">0%</h2>
 </div>
 
-<div class="glass rounded-3xl p-6">
+<div class="glass rounded-3xl p-6 text-left">
 <p class="text-gray-400 mb-2">Streak</p>
-<h2 id="streak" class="text-4xl font-bold gradient">
-1 🔥
-</h2>
+<h2 id="streak" class="text-4xl font-bold gradient">1 🔥</h2>
 </div>
 
 </div>
 
 </section>
 
-<!-- FILTERS -->
+<section class="px-6 pb-12">
 
-<section class="px-6">
-
-<div class="flex flex-wrap justify-center gap-4 mb-12">
+<div class="flex flex-wrap justify-center gap-4">
 
 <button onclick="filterQuestions('All')" class="btn-main">
-All
+All Questions
 </button>
 
 <button onclick="filterQuestions('Math')" class="btn-outline">
@@ -275,15 +340,13 @@ English
 
 </section>
 
-<!-- QUIZ -->
+<section class="px-6 pb-24">
 
-<section class="pb-24 px-6">
+<div class="glass max-w-3xl mx-auto rounded-[35px] p-8">
 
-<div class="glass max-w-3xl mx-auto rounded-3xl p-8">
+<div class="flex justify-between items-center mb-5 gap-4 flex-wrap">
 
-<div class="flex justify-between mb-6">
-
-<p id="questionCount">
+<p id="questionCount" class="text-gray-300">
 Question 1/75
 </p>
 
@@ -297,7 +360,7 @@ Question 1/75
 <div id="questionProgress" style="width:0%"></div>
 </div>
 
-<h2 id="questionText" class="text-3xl font-bold mb-8">
+<h2 id="questionText" class="text-3xl font-bold mb-8 leading-relaxed">
 Loading...
 </h2>
 
@@ -307,579 +370,430 @@ Loading...
 
 </section>
 
-<!-- LEADERBOARD -->
-
-<section class="pb-24 px-6">
+<section class="px-6 pb-28">
 
 <h2 class="text-5xl font-bold text-center mb-16">
 Top <span class="gradient">Rankers</span>
 </h2>
 
-<div id="leaderboard"
-class="max-w-4xl mx-auto space-y-6"></div>
+<div id="leaderboard" class="max-w-4xl mx-auto space-y-5"></div>
 
 </section>
 
 </div>
 
-<script>
+<script type="module">
 
-/* =========================
-SUPABASE
-========================= */
+import { createClient }
+from 'https://esm.sh/@supabase/supabase-js@2'
 
-const SUPABASE_URL =
-"https://ncmtvfamysifjjkcszuw.supabase.co";
+const supabase = createClient(
+'https://ncmtvfamysifjjkcszuw.supabase.co',
+'sb_publishable_Z4pmzCeIXWNxnXuseaP8HQ_LJTLnY1P'
+)
 
-const SUPABASE_KEY =
-"sb_publishable_Z4pmzCeIXWNxnXuseaP8HQ_LJTLnY1P";
+let currentLanguage = 'en'
+let currentQuestion = 0
+let xp = 0
+let solved = 0
+let correct = 0
+let streak = 1
+let isGuest = false
+let filteredQuestions = []
 
-const supabase =
-window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
-);
-
-/* =========================
-VARIABLES
-========================= */
-
-let currentLanguage = "en";
-
-let currentQuestion = 0;
-
-let xp = 0;
-
-let solved = 0;
-
-let correct = 0;
-
-let isGuest = false;
-
-let filteredQuestions = [];
-
-/* =========================
-LANGUAGE
-========================= */
-
-document.getElementById("languageToggle")
-.addEventListener("change",(e)=>{
-
-currentLanguage = e.target.value;
-
-loadQuestion();
-
-});
-
-/* =========================
-QUESTIONS
-========================= */
-
-const baseQuestions = [
+const questions = [
 
 {
-subject:"Math",
-question_en:"What is π value?",
-question_hi:"π का मान क्या है?",
-options_en:["2.14","3.14","4.14","5.14"],
-options_hi:["2.14","3.14","4.14","5.14"],
-answer:"3.14"
+subject:'Math',
+question_en:'What is value of π ?',
+question_hi:'π का मान क्या है?',
+options_en:['2.14','3.14','4.14','5.14'],
+options_hi:['2.14','3.14','4.14','5.14'],
+answer:'3.14'
 },
 
 {
-subject:"Math",
-question_en:"5 × 5 = ?",
-question_hi:"5 × 5 कितना होता है?",
-options_en:["10","15","20","25"],
-options_hi:["10","15","20","25"],
-answer:"25"
+subject:'Math',
+question_en:'5 × 5 = ?',
+question_hi:'5 × 5 कितना होता है?',
+options_en:['15','20','25','30'],
+options_hi:['15','20','25','30'],
+answer:'25'
 },
 
 {
-subject:"Math",
-question_en:"Square root of 81?",
-question_hi:"81 का वर्गमूल क्या है?",
-options_en:["7","8","9","10"],
-options_hi:["7","8","9","10"],
-answer:"9"
+subject:'Math',
+question_en:'Square root of 81?',
+question_hi:'81 का वर्गमूल क्या है?',
+options_en:['7','8','9','10'],
+options_hi:['7','8','9','10'],
+answer:'9'
 },
 
 {
-subject:"Science",
-question_en:"Formula of water?",
-question_hi:"पानी का सूत्र क्या है?",
-options_en:["H2O","CO2","O2","NaCl"],
-options_hi:["H2O","CO2","O2","NaCl"],
-answer:"H2O"
+subject:'Science',
+question_en:'Formula of water?',
+question_hi:'पानी का सूत्र क्या है?',
+options_en:['H2O','CO2','O2','NaCl'],
+options_hi:['H2O','CO2','O2','NaCl'],
+answer:'H2O'
 },
 
 {
-subject:"Science",
-question_en:"Sun is a?",
-question_hi:"सूर्य क्या है?",
-options_en:["Planet","Star","Moon","Satellite"],
-options_hi:["ग्रह","तारा","चंद्रमा","उपग्रह"],
-answer:"Star"
+subject:'Science',
+question_en:'Sun is a ?',
+question_hi:'सूर्य क्या है?',
+options_en:['Planet','Star','Moon','Satellite'],
+options_hi:['ग्रह','तारा','चंद्रमा','उपग्रह'],
+answer:'Star'
 },
 
 {
-subject:"English",
-question_en:"Synonym of Happy?",
-question_hi:"Happy का समानार्थी शब्द क्या है?",
-options_en:["Sad","Joyful","Weak","Angry"],
-options_hi:["उदास","खुश","कमज़ोर","गुस्सा"],
-answer:"Joyful"
+subject:'Science',
+question_en:'Which gas do plants release?',
+question_hi:'पौधे कौन सी गैस छोड़ते हैं?',
+options_en:['Oxygen','Nitrogen','Helium','Carbon'],
+options_hi:['ऑक्सीजन','नाइट्रोजन','हीलियम','कार्बन'],
+answer:'Oxygen'
+},
+
+{
+subject:'English',
+question_en:'Synonym of Happy?',
+question_hi:'Happy का समानार्थी शब्द?',
+options_en:['Sad','Joyful','Weak','Angry'],
+options_hi:['उदास','खुश','कमज़ोर','गुस्सा'],
+answer:'Joyful'
+},
+
+{
+subject:'English',
+question_en:'Opposite of Fast?',
+question_hi:'Fast का विलोम शब्द?',
+options_en:['Quick','Rapid','Slow','Speed'],
+options_hi:['तेज','जल्दी','धीमा','स्पीड'],
+answer:'Slow'
+},
+
+{
+subject:'English',
+question_en:'Choose correct spelling',
+question_hi:'सही spelling चुनिए',
+options_en:['Beutiful','Beautiful','Beautifull','Beautifool'],
+options_hi:['Beutiful','Beautiful','Beautifull','Beautifool'],
+answer:'Beautiful'
 }
 
-];
-
-/* MAKE 75 QUESTIONS */
-
-const questions = [];
+]
 
 while(questions.length < 75){
-
-questions.push(...baseQuestions);
-
+questions.push(...questions.slice(0,9))
 }
 
-filteredQuestions = [...questions];
-
-/* =========================
-SHOW APP
-========================= */
+filteredQuestions = [...questions].slice(0,75)
 
 function showApp(){
-
-document.getElementById("authSection")
-.style.display = "none";
-
-document.getElementById("app")
-.classList.remove("hidden");
-
+document.getElementById('authSection').style.display='none'
+document.getElementById('app').classList.remove('hidden')
+document.getElementById('logoutBtn').classList.remove('hidden')
 }
-
-/* =========================
-GUEST MODE
-========================= */
 
 window.guestMode = function(){
-
-isGuest = true;
-
-showApp();
-
-loadQuestion();
-
-loadLeaderboard();
-
+isGuest = true
+showApp()
+loadQuestion()
+loadLeaderboard()
 }
-
-/* =========================
-SIGNUP
-========================= */
 
 window.signup = async function(){
 
-const name =
-document.getElementById("name").value;
+const name = document.getElementById('name').value
+const email = document.getElementById('email').value
+const password = document.getElementById('password').value
 
-const email =
-document.getElementById("email").value;
+if(!name || !email || !password){
+alert('Fill all fields')
+return
+}
 
-const password =
-document.getElementById("password").value;
-
-const { data, error } =
-await supabase.auth.signUp({
-
+const { data, error } = await supabase.auth.signUp({
 email,
 password
-
-});
+})
 
 if(error){
-
-alert(error.message);
-
-return;
-
+alert(error.message)
+return
 }
 
 await supabase
-.from("users")
+.from('users')
 .insert([{
-
 id:data.user.id,
-name:name,
+name,
 xp:0,
 solved:0,
 correct:0,
 streak:1
+}])
 
-}]);
-
-alert("Account Created ✅");
-
+alert('Account Created Successfully ✅')
+location.reload()
 }
-
-/* =========================
-LOGIN
-========================= */
 
 window.login = async function(){
 
-const email =
-document.getElementById("email").value;
+const email = document.getElementById('email').value
+const password = document.getElementById('password').value
 
-const password =
-document.getElementById("password").value;
-
-const { error } =
-await supabase.auth.signInWithPassword({
-
+const { error } = await supabase.auth.signInWithPassword({
 email,
 password
-
-});
+})
 
 if(error){
-
-alert(error.message);
-
+alert(error.message)
 }else{
-
-location.reload();
-
+location.reload()
 }
-
 }
-
-/* =========================
-LOGOUT
-========================= */
 
 window.logout = async function(){
-
-await supabase.auth.signOut();
-
-location.reload();
-
+await supabase.auth.signOut()
+location.reload()
 }
-
-/* =========================
-SESSION
-========================= */
 
 async function checkUser(){
 
 const {
 data:{session}
-}
-= await supabase.auth.getSession();
+} = await supabase.auth.getSession()
 
 if(session){
 
-showApp();
+showApp()
 
-document.getElementById("navUser")
-.innerText = session.user.email;
+const user = session.user
 
-const { data } =
-await supabase
-.from("users")
-.select("*")
-.eq("id",session.user.id)
-.single();
+document.getElementById('navUser').innerText = user.email
+
+const { data } = await supabase
+.from('users')
+.select('*')
+.eq('id',user.id)
+.single()
 
 if(data){
 
-xp = data.xp || 0;
+xp = data.xp || 0
+solved = data.solved || 0
+correct = data.correct || 0
+streak = data.streak || 1
 
-solved = data.solved || 0;
-
-correct = data.correct || 0;
-
-updateUI(data);
-
+updateUI()
 }
 
-loadQuestion();
-
-loadLeaderboard();
-
+loadQuestion()
+loadLeaderboard()
+}
 }
 
-}
+checkUser()
 
-checkUser();
+function updateUI(){
 
-/* =========================
-UPDATE UI
-========================= */
-
-function updateUI(data){
-
-const accuracy =
-solved === 0
+const accuracy = solved === 0
 ? 0
-: Math.floor((correct/solved)*100);
+: Math.floor((correct/solved)*100)
 
-document.getElementById("xp")
-.innerText = xp;
+document.getElementById('xp').innerText = xp
 
-document.getElementById("solved")
-.innerText = solved;
+document.getElementById('solved').innerText = solved
 
-document.getElementById("accuracy")
-.innerText = accuracy + "%";
-
-document.getElementById("streak")
-.innerText = data.streak + " 🔥";
-
+document.getElementById('accuracy').innerText = accuracy + '%'
+document.getElementById('streak').innerText = streak + ' 🔥'
 }
-
-/* =========================
-LOAD QUESTION
-========================= */
 
 function loadQuestion(){
 
 if(currentQuestion >= filteredQuestions.length){
-
-alert("Quiz Completed 🎉");
-
-currentQuestion = 0;
-
+alert('Quiz Completed 🎉')
+currentQuestion = 0
 }
 
-const q = filteredQuestions[currentQuestion];
+const q = filteredQuestions[currentQuestion]
 
-const question =
-currentLanguage === "hi"
+const question = currentLanguage === 'hi'
 ? q.question_hi
-: q.question_en;
+: q.question_en
 
-const options =
-currentLanguage === "hi"
+const options = currentLanguage === 'hi'
 ? q.options_hi
-: q.options_en;
+: q.options_en
 
-document.getElementById("questionText")
-.innerText = question;
+document.getElementById('questionText').innerText = question
 
-document.getElementById("questionCount")
-.innerText =
-`Question ${currentQuestion+1}/${filteredQuestions.length}`;
+document.getElementById('questionCount').innerText =
+`Question ${currentQuestion+1}/${filteredQuestions.length}`
 
-document.getElementById("questionProgress")
-.style.width =
-`${((currentQuestion+1)/filteredQuestions.length)*100}%`;
+document.getElementById('questionProgress').style.width =
+`${((currentQuestion+1)/filteredQuestions.length)*100}%`
 
-const answers =
-document.getElementById("answers");
-
-answers.innerHTML = "";
+const answers = document.getElementById('answers')
+answers.innerHTML = ''
 
 options.forEach((option,index)=>{
 
-const div =
-document.createElement("div");
+const div = document.createElement('div')
 
 div.className =
-"answer glass p-5 rounded-2xl";
+'answer glass p-5 rounded-2xl'
 
-div.innerText = option;
+div.innerText = option
 
 div.onclick = ()=>{
-
-checkAnswer(q.options_en[index]);
-
-};
-
-answers.appendChild(div);
-
-});
-
+checkAnswer(q.options_en[index])
 }
 
-/* =========================
-CHECK ANSWER
-========================= */
+answers.appendChild(div)
+
+})
+}
 
 async function checkAnswer(answer){
 
-const q = filteredQuestions[currentQuestion];
+const q = filteredQuestions[currentQuestion]
 
-solved++;
+solved++
 
 if(answer === q.answer){
 
-xp += 10;
-
-correct++;
-
-alert("Correct ✅");
+xp += 10
+correct++
+alert('Correct ✅')
 
 }else{
 
-xp -= 2;
-
+xp -= 2
 if(xp < 0){
-xp = 0;
+xp = 0
 }
 
-alert("Wrong ❌");
-
+alert('Wrong ❌')
 }
+
+updateUI()
 
 if(!isGuest){
 
 const {
 data:{session}
-}
-= await supabase.auth.getSession();
+} = await supabase.auth.getSession()
 
 await supabase
-.from("users")
+.from('users')
 .update({
-
 xp,
 solved,
-correct
-
+correct,
+streak
 })
-.eq("id",session.user.id);
-
+.eq('id',session.user.id)
 }
 
-updateUI({
-streak:1
-});
-
-currentQuestion++;
-
-loadQuestion();
-
-loadLeaderboard();
-
+currentQuestion++
+loadQuestion()
+loadLeaderboard()
 }
-
-/* =========================
-FILTER
-========================= */
 
 window.filterQuestions = function(subject){
 
-if(subject === "All"){
-
-filteredQuestions = [...questions];
-
+if(subject === 'All'){
+filteredQuestions = [...questions].slice(0,75)
 }else{
-
-filteredQuestions =
-questions.filter(q=>q.subject===subject);
-
+filteredQuestions = questions.filter(q=>q.subject===subject)
 }
 
-currentQuestion = 0;
-
-loadQuestion();
-
+currentQuestion = 0
+loadQuestion()
 }
-
-/* =========================
-LEADERBOARD
-========================= */
 
 async function loadLeaderboard(){
 
-const leaderboard =
-document.getElementById("leaderboard");
+const leaderboard = document.getElementById('leaderboard')
+leaderboard.innerHTML = ''
 
-leaderboard.innerHTML = "";
+const { data } = await supabase
+.from('users')
+.select('*')
+.order('xp',{ascending:false})
+.limit(10)
 
-const { data } =
-await supabase
-.from("users")
-.select("*")
-.order("xp",{ascending:false})
-.limit(10);
+if(!data) return
 
-if(!data) return;
-
-let rank = 1;
+let rank = 1
 
 data.forEach(user=>{
 
 leaderboard.innerHTML += `
 
-<div class="glass rounded-3xl p-6 flex justify-between items-center">
+<div class="glass rounded-3xl p-6 flex justify-between items-center gap-4 flex-wrap">
 
 <div class="flex items-center gap-4">
 
-<div class="w-14 h-14 rounded-full bg-white text-black flex items-center justify-center font-bold">
+<div class="w-14 h-14 rounded-full bg-white text-black flex items-center justify-center font-bold text-lg">
 ${rank}
 </div>
 
 <div>
-
 <h2 class="font-bold text-xl">
 ${user.name}
 </h2>
-
 <p class="text-gray-400">
 XP ${user.xp}
 </p>
-
 </div>
 
 </div>
 
-<div class="text-2xl">
+<div class="text-3xl">
 🏆
 </div>
 
 </div>
 
-`;
+`
 
-rank++;
-
-});
-
+rank++
+})
 }
 
-/* =========================
-TIMER
-========================= */
+document.getElementById('languageToggle')
+.addEventListener('change',(e)=>{
+currentLanguage = e.target.value
+loadQuestion()
+})
 
-let time = 30;
+let time = 30
 
 setInterval(()=>{
 
-const timer =
-document.getElementById("timer");
+const timer = document.getElementById('timer')
 
-if(timer){
+if(timer && !document.getElementById('app').classList.contains('hidden')){
 
-time--;
-
-timer.innerText = time;
+time--
+timer.innerText = time
 
 if(time <= 0){
 
-time = 30;
-
-currentQuestion++;
-
-loadQuestion();
-
+time = 30
+currentQuestion++
+loadQuestion()
+}
 }
 
-}
-
-},1000);
+},1000)
 
 </script>
 
