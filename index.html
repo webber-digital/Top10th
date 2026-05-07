@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Top10th | Study Smarter</title>
+<title>Top10th | Smart Learning</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
@@ -23,10 +23,7 @@ font-family:'Inter',sans-serif;
 background:#050816;
 color:white;
 overflow-x:hidden;
-scroll-behavior:smooth;
 }
-
-/* BACKGROUND GRID */
 
 .bg-grid{
 position:fixed;
@@ -38,77 +35,6 @@ background-size:40px 40px;
 z-index:-3;
 }
 
-/* GLOW ORBS */
-
-.orb{
-position:fixed;
-border-radius:50%;
-filter:blur(100px);
-animation:float 10s infinite ease-in-out;
-z-index:-2;
-}
-
-.orb1{
-width:300px;
-height:300px;
-background:#38BDF8;
-top:-100px;
-left:-80px;
-opacity:0.25;
-}
-
-.orb2{
-width:250px;
-height:250px;
-background:#7C3AED;
-right:-80px;
-top:200px;
-opacity:0.2;
-}
-
-.orb3{
-width:280px;
-height:280px;
-background:#38BDF8;
-bottom:-100px;
-right:20%;
-opacity:0.15;
-}
-
-@keyframes float{
-0%{transform:translateY(0px)}
-50%{transform:translateY(-30px)}
-100%{transform:translateY(0px)}
-}
-
-/* PARTICLES */
-
-.particle{
-position:absolute;
-width:4px;
-height:4px;
-background:white;
-border-radius:50%;
-opacity:0.3;
-animation:particle 10s linear infinite;
-}
-
-@keyframes particle{
-0%{
-transform:translateY(0px);
-opacity:0;
-}
-50%{
-opacity:0.5;
-}
-100%{
-transform:translateY(-1000px);
-opacity:0;
-}
-}
-
-/* GLASS */
-
 .glass{
 background:rgba(255,255,255,0.06);
 backdrop-filter:blur(18px);
@@ -116,97 +42,43 @@ border:1px solid rgba(255,255,255,0.08);
 box-shadow:0 0 25px rgba(56,189,248,0.08);
 }
 
-/* TEXT */
-
 .gradient{
 background:linear-gradient(90deg,#38BDF8,#7C3AED);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 }
 
-/* BUTTONS */
-
 .btn-main{
 background:linear-gradient(90deg,#38BDF8,#7C3AED);
-padding:14px 30px;
+padding:14px 28px;
 border-radius:999px;
 font-weight:600;
-transition:0.4s;
-box-shadow:0 0 20px rgba(56,189,248,0.3);
+transition:0.3s;
+border:none;
+cursor:pointer;
 }
 
 .btn-main:hover{
-transform:scale(1.08);
-box-shadow:0 0 35px rgba(56,189,248,0.6);
+transform:scale(1.05);
 }
 
 .btn-outline{
-padding:14px 30px;
+padding:14px 28px;
 border-radius:999px;
 border:1px solid rgba(255,255,255,0.15);
-transition:0.4s;
 background:rgba(255,255,255,0.03);
+cursor:pointer;
 }
 
-.btn-outline:hover{
-background:white;
-color:black;
-transform:scale(1.06);
+.answer{
+transition:0.3s;
+cursor:pointer;
 }
 
-/* ANIMATIONS */
-
-.fade{
-opacity:0;
-transform:translateY(40px);
-transition:1s;
+.answer:hover{
+transform:scale(1.02);
+background:rgba(255,255,255,0.1);
 }
-
-.fade.show{
-opacity:1;
-transform:translateY(0);
-}
-
-.float{
-animation:floating 5s infinite ease-in-out;
-}
-
-@keyframes floating{
-0%{transform:translateY(0px)}
-50%{transform:translateY(-12px)}
-100%{transform:translateY(0px)}
-}
-
-/* SUBJECT CARD */
-
-.subject-card{
-transition:0.5s;
-overflow:hidden;
-position:relative;
-}
-
-.subject-card:hover{
-transform:translateY(-10px) scale(1.03);
-box-shadow:0 0 35px rgba(56,189,248,0.25);
-}
-
-.subject-card::before{
-content:'';
-position:absolute;
-width:200%;
-height:200%;
-background:linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent);
-transform:rotate(25deg);
-top:-100%;
-left:-100%;
-transition:1s;
-}
-
-.subject-card:hover::before{
-left:100%;
-}
-
-/* PROGRESS */
 
 .progress{
 height:8px;
@@ -220,50 +92,8 @@ height:100%;
 background:linear-gradient(90deg,#38BDF8,#7C3AED);
 }
 
-/* MCQ */
-
-.answer{
-transition:0.3s;
-}
-
-.answer:hover{
-transform:scale(1.02);
-background:rgba(255,255,255,0.12);
-}
-
-/* PREMIUM SHINE */
-
-.shine{
-position:relative;
-overflow:hidden;
-}
-
-.shine::before{
-content:'';
-position:absolute;
-top:0;
-left:-100%;
-width:100%;
-height:100%;
-background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);
-animation:shine 4s infinite;
-}
-
-@keyframes shine{
-100%{
-left:120%;
-}
-}
-
-/* LEADERBOARD */
-
-.rank-card{
-transition:0.4s;
-}
-
-.rank-card:hover{
-transform:translateY(-10px);
-box-shadow:0 0 30px rgba(124,58,237,0.35);
+input,select{
+outline:none;
 }
 
 </style>
@@ -273,292 +103,200 @@ box-shadow:0 0 30px rgba(124,58,237,0.35);
 
 <div class="bg-grid"></div>
 
-<div class="orb orb1"></div>
-<div class="orb orb2"></div>
-<div class="orb orb3"></div>
-
-<!-- PARTICLES -->
-
-<div class="particle" style="left:10%;top:95%"></div>
-<div class="particle" style="left:20%;top:90%"></div>
-<div class="particle" style="left:35%;top:92%"></div>
-<div class="particle" style="left:50%;top:96%"></div>
-<div class="particle" style="left:65%;top:94%"></div>
-<div class="particle" style="left:80%;top:90%"></div>
-
 <!-- NAVBAR -->
 
 <nav class="fixed top-0 w-full z-50 glass px-6 py-4 flex justify-between items-center">
 
-<h1 class="text-2xl font-bold gradient">Top10th</h1>
+<h1 class="text-2xl font-bold gradient">
+Top10th
+</h1>
 
-<div class="flex gap-4 text-sm">
-<a href="#" class="hover:text-sky-400 transition">Home</a>
-<a href="#" class="hover:text-sky-400 transition">Subjects</a>
-<a href="#" class="hover:text-sky-400 transition">Premium</a>
+<div class="flex items-center gap-3">
+
+<select id="languageToggle"
+class="bg-black/40 border border-white/10 px-4 py-2 rounded-xl">
+
+<option value="en">
+English
+</option>
+
+<option value="hi">
+हिंदी
+</option>
+
+</select>
+
+<p id="navUser" class="text-sm text-gray-300">
+Guest
+</p>
+
+<button onclick="logout()" class="btn-outline text-sm">
+Logout
+</button>
+
 </div>
 
 </nav>
 
-<!-- HERO -->
+<!-- AUTH -->
 
-<section class="min-h-screen flex flex-col justify-center items-center text-center px-6 fade">
+<section id="authSection"
+class="min-h-screen flex items-center justify-center px-6">
 
-<div class="glass px-4 py-2 rounded-full text-sm mb-6 float">
-🔥 India's Modern Study Platform
+<div class="glass max-w-md w-full rounded-3xl p-8">
+
+<h2 class="text-4xl font-bold mb-4">
+Welcome to <span class="gradient">Top10th</span>
+</h2>
+
+<p class="text-gray-400 mb-8">
+Study smarter and save your progress.
+</p>
+
+<div class="space-y-4">
+
+<input
+id="name"
+type="text"
+placeholder="Your Name"
+class="w-full p-4 rounded-2xl bg-black/30 border border-white/10"
+/>
+
+<input
+id="email"
+type="email"
+placeholder="Email"
+class="w-full p-4 rounded-2xl bg-black/30 border border-white/10"
+/>
+
+<input
+id="password"
+type="password"
+placeholder="Password"
+class="w-full p-4 rounded-2xl bg-black/30 border border-white/10"
+/>
+
+<button onclick="signup()" class="btn-main w-full">
+Create Account
+</button>
+
+<button onclick="login()" class="btn-outline w-full">
+Login
+</button>
+
 </div>
 
-<h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6">
-Study <span class="gradient">Smarter</span><br>
-Score Higher
+</div>
+
+</section>
+
+<!-- APP -->
+
+<div id="app" class="hidden">
+
+<!-- HERO -->
+
+<section class="min-h-screen flex flex-col justify-center items-center text-center px-6">
+
+<div class="glass px-4 py-2 rounded-full text-sm mb-6">
+🔥 Modern Learning Platform
+</div>
+
+<h1 class="text-6xl font-extrabold mb-6">
+Study <span class="gradient">Smarter</span>
 </h1>
 
 <p class="text-gray-400 max-w-2xl mb-10 text-lg">
-Practice important Class 10 questions with a futuristic learning experience designed for modern students.
+75 Important Questions with bilingual learning system.
 </p>
 
-<div class="flex gap-4 flex-wrap justify-center">
+<div class="grid md:grid-cols-4 gap-6 mt-10 w-full max-w-6xl">
 
-<a href="#" class="btn-main">
-Start Practice
-</a>
-
-<a href="#" class="btn-outline">
-Explore Premium
-</a>
-
+<div class="glass rounded-3xl p-6">
+<p class="text-gray-400 mb-2">XP</p>
+<h2 id="xp" class="text-4xl font-bold gradient">
+0
+</h2>
 </div>
 
-<!-- WIDGETS -->
-
-<div class="grid md:grid-cols-3 gap-6 mt-16 w-full max-w-5xl">
-
-<div class="glass rounded-3xl p-6 text-left">
-<p class="text-gray-400 text-sm mb-2">Daily Streak</p>
-<h2 class="text-4xl font-bold gradient">12 🔥</h2>
+<div class="glass rounded-3xl p-6">
+<p class="text-gray-400 mb-2">Solved</p>
+<h2 id="solved" class="text-4xl font-bold gradient">
+0
+</h2>
 </div>
 
-<div class="glass rounded-3xl p-6 text-left">
-<p class="text-gray-400 text-sm mb-2">Top Scorer</p>
-<h2 class="text-2xl font-bold">Arman ⚡</h2>
+<div class="glass rounded-3xl p-6">
+<p class="text-gray-400 mb-2">Accuracy</p>
+<h2 id="accuracy" class="text-4xl font-bold gradient">
+0%
+</h2>
 </div>
 
-<div class="glass rounded-3xl p-6 text-left">
-<p class="text-gray-400 text-sm mb-2">XP Points</p>
-<h2 class="text-4xl font-bold gradient">2480</h2>
+<div class="glass rounded-3xl p-6">
+<p class="text-gray-400 mb-2">Streak</p>
+<h2 id="streak" class="text-4xl font-bold gradient">
+1 🔥
+</h2>
 </div>
 
 </div>
 
 </section>
 
-<!-- SUBJECTS -->
+<!-- FILTERS -->
 
-<section class="py-28 px-6 fade">
+<section class="px-6">
 
-<h2 class="text-5xl font-bold text-center mb-16">
-Choose <span class="gradient">Subjects</span>
-</h2>
+<div class="flex flex-wrap justify-center gap-4 mb-12">
 
-<div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+<button onclick="filterQuestions('All')" class="btn-main">
+All
+</button>
 
-<!-- ENGLISH -->
+<button onclick="filterQuestions('Math')" class="btn-outline">
+Math
+</button>
 
-<div class="glass rounded-3xl p-8 subject-card">
+<button onclick="filterQuestions('Science')" class="btn-outline">
+Science
+</button>
 
-<div class="flex justify-between items-center mb-8">
-
-<div>
-<h3 class="text-4xl font-bold gradient">EN</h3>
-<p class="text-gray-400">English</p>
-</div>
-
-<div class="w-14 h-14 rounded-full border-4 border-sky-400 flex items-center justify-center">
-70%
-</div>
-
-</div>
-
-<div class="progress mb-4">
-<div style="width:70%"></div>
-</div>
-
-<p class="text-gray-400 text-sm">
-240 Questions
-</p>
-
-</div>
-
-<!-- SCIENCE -->
-
-<div class="glass rounded-3xl p-8 subject-card">
-
-<div class="flex justify-between items-center mb-8">
-
-<div>
-<h3 class="text-4xl font-bold gradient">SCI</h3>
-<p class="text-gray-400">Science</p>
-</div>
-
-<div class="w-14 h-14 rounded-full border-4 border-purple-500 flex items-center justify-center">
-55%
-</div>
-
-</div>
-
-<div class="progress mb-4">
-<div style="width:55%"></div>
-</div>
-
-<p class="text-gray-400 text-sm">
-180 Questions
-</p>
-
-</div>
-
-<!-- MATH -->
-
-<div class="glass rounded-3xl p-8 subject-card">
-
-<div class="flex justify-between items-center mb-8">
-
-<div>
-<h3 class="text-4xl font-bold gradient">MTH</h3>
-<p class="text-gray-400">Math</p>
-</div>
-
-<div class="w-14 h-14 rounded-full border-4 border-sky-400 flex items-center justify-center">
-85%
-</div>
-
-</div>
-
-<div class="progress mb-4">
-<div style="width:85%"></div>
-</div>
-
-<p class="text-gray-400 text-sm">
-320 Questions
-</p>
-
-</div>
+<button onclick="filterQuestions('English')" class="btn-outline">
+English
+</button>
 
 </div>
 
 </section>
 
-<!-- MCQ -->
+<!-- QUIZ -->
 
-<section class="py-28 px-6 fade">
-
-<h2 class="text-5xl font-bold text-center mb-16">
-Practice <span class="gradient">Questions</span>
-</h2>
+<section class="pb-24 px-6">
 
 <div class="glass max-w-3xl mx-auto rounded-3xl p-8">
 
 <div class="flex justify-between mb-6">
-<p>Question 4/10</p>
-<p>⏳ 00:24</p>
+
+<p id="questionCount">
+Question 1/75
+</p>
+
+<p>
+⏳ <span id="timer">30</span>s
+</p>
+
 </div>
 
 <div class="progress mb-10">
-<div style="width:40%"></div>
+<div id="questionProgress" style="width:0%"></div>
 </div>
 
-<h2 class="text-2xl font-semibold mb-8">
-What is the value of π?
+<h2 id="questionText" class="text-3xl font-bold mb-8">
+Loading...
 </h2>
 
-<div class="space-y-4">
-
-<div class="answer glass p-5 rounded-2xl cursor-pointer">
-A. 2.14
-</div>
-
-<div class="answer glass p-5 rounded-2xl cursor-pointer">
-B. 3.14
-</div>
-
-<div class="answer glass p-5 rounded-2xl cursor-pointer">
-C. 4.14
-</div>
-
-<div class="answer glass p-5 rounded-2xl cursor-pointer">
-D. 5.14
-</div>
-
-</div>
-
-<div class="flex gap-4 mt-8 flex-wrap">
-
-<button class="btn-main">
-Next
-</button>
-
-<button class="btn-outline">
-Save
-</button>
-
-<button class="btn-outline">
-Share
-</button>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- PREMIUM -->
-
-<section class="py-28 px-6 fade">
-
-<div class="max-w-5xl mx-auto glass rounded-[40px] p-10 shine">
-
-<div class="text-center">
-
-<div class="inline-block px-4 py-2 rounded-full bg-purple-500/20 text-purple-300 mb-6">
-💎 PREMIUM ACCESS
-</div>
-
-<h2 class="text-6xl font-bold mb-6">
-Unlock <span class="gradient">Premium</span>
-</h2>
-
-<p class="text-gray-400 max-w-2xl mx-auto mb-12">
-Get important questions, exam prediction PDFs, no ads and priority notes.
-</p>
-
-<div class="grid md:grid-cols-2 gap-6 mb-12">
-
-<div class="glass rounded-3xl p-6">
-✅ Important Questions
-</div>
-
-<div class="glass rounded-3xl p-6">
-✅ Exam Prediction
-</div>
-
-<div class="glass rounded-3xl p-6">
-✅ Premium PDF
-</div>
-
-<div class="glass rounded-3xl p-6">
-✅ No Ads
-</div>
-
-</div>
-
-<h2 class="text-7xl font-bold gradient mb-8">
-₹49
-</h2>
-
-<button class="btn-main text-lg">
-Unlock Premium
-</button>
-
-</div>
+<div id="answers" class="space-y-4"></div>
 
 </div>
 
@@ -566,188 +304,617 @@ Unlock Premium
 
 <!-- LEADERBOARD -->
 
-<section class="py-28 px-6 fade">
+<section class="pb-24 px-6">
 
 <h2 class="text-5xl font-bold text-center mb-16">
 Top <span class="gradient">Rankers</span>
 </h2>
 
-<div class="max-w-4xl mx-auto space-y-6">
-
-<div class="glass rounded-3xl p-6 flex justify-between items-center rank-card">
-
-<div class="flex items-center gap-4">
-<div class="w-14 h-14 rounded-full bg-yellow-400 text-black flex items-center justify-center font-bold">
-1
-</div>
-
-<div>
-<h2 class="font-bold text-xl">Arman</h2>
-<p class="text-gray-400">XP 4820</p>
-</div>
-</div>
-
-<div class="text-yellow-400 text-3xl">
-👑
-</div>
-
-</div>
-
-<div class="glass rounded-3xl p-6 flex justify-between items-center rank-card">
-
-<div class="flex items-center gap-4">
-<div class="w-14 h-14 rounded-full bg-gray-300 text-black flex items-center justify-center font-bold">
-2
-</div>
-
-<div>
-<h2 class="font-bold text-xl">Rahul</h2>
-<p class="text-gray-400">XP 4210</p>
-</div>
-</div>
-
-</div>
-
-<div class="glass rounded-3xl p-6 flex justify-between items-center rank-card">
-
-<div class="flex items-center gap-4">
-<div class="w-14 h-14 rounded-full bg-orange-500 text-black flex items-center justify-center font-bold">
-3
-</div>
-
-<div>
-<h2 class="font-bold text-xl">Priya</h2>
-<p class="text-gray-400">XP 3980</p>
-</div>
-</div>
-
-</div>
-
-</div>
+<div id="leaderboard"
+class="max-w-4xl mx-auto space-y-6"></div>
 
 </section>
 
-<!-- DAILY CHALLENGE -->
-
-<section class="py-28 px-6 fade">
-
-<div class="glass max-w-5xl mx-auto rounded-[40px] p-10 text-center">
-
-<div class="inline-block px-4 py-2 rounded-full bg-sky-400/20 text-sky-300 mb-6">
-🔥 DAILY CHALLENGE
 </div>
 
-<h2 class="text-5xl font-bold mb-6">
-10 Questions.<br>
-<span class="gradient">1 Winner.</span>
-</h2>
+<script type="module">
 
-<p class="text-gray-400 max-w-2xl mx-auto mb-10">
-Complete today's challenge and earn bonus XP rewards.
-</p>
+/* FIREBASE */
 
-<button class="btn-main">
-Start Challenge
-</button>
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
 
-</div>
-
-</section>
-
-<!-- PROFILE -->
-
-<section class="py-28 px-6 fade">
-
-<h2 class="text-5xl font-bold text-center mb-16">
-Your <span class="gradient">Profile</span>
-</h2>
-
-<div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
-
-<div class="glass rounded-3xl p-8">
-
-<h2 class="text-3xl font-bold mb-4">
-Arman ⚡
-</h2>
-
-<p class="text-gray-400 mb-6">
-Premium User
-</p>
-
-<div class="space-y-4">
-
-<div class="flex justify-between">
-<span>Accuracy</span>
-<span>92%</span>
-</div>
-
-<div class="flex justify-between">
-<span>Questions Solved</span>
-<span>1240</span>
-</div>
-
-<div class="flex justify-between">
-<span>Daily Streak</span>
-<span>12 Days</span>
-</div>
-
-</div>
-
-</div>
-
-<div class="glass rounded-3xl p-8">
-
-<h2 class="text-2xl font-bold mb-6">
-Achievements
-</h2>
-
-<div class="flex gap-4 flex-wrap">
-
-<div class="glass px-4 py-3 rounded-full">
-🏆 Topper
-</div>
-
-<div class="glass px-4 py-3 rounded-full">
-🔥 Streak
-</div>
-
-<div class="glass px-4 py-3 rounded-full">
-⚡ Fast Learner
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- FOOTER -->
-
-<footer class="py-10 text-center text-gray-500 border-t border-white/10">
-
-<h2 class="text-3xl font-bold gradient mb-4">
-Top10th
-</h2>
-
-<p>
-Built for modern students 🚀
-</p>
-
-</footer>
-
-<script>
-
-const observer = new IntersectionObserver(entries => {
-entries.forEach(entry => {
-if(entry.isIntersecting){
-entry.target.classList.add('show');
+import {
+getAuth,
+createUserWithEmailAndPassword,
+signInWithEmailAndPassword,
+signOut,
+onAuthStateChanged
 }
-});
+from "https://www.gstatic.com/firebasejs/12.12.1/firebase-auth.js";
+
+import {
+getFirestore,
+doc,
+setDoc,
+getDoc,
+updateDoc,
+collection,
+query,
+orderBy,
+limit,
+getDocs
+}
+from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";
+
+/* CONFIG */
+
+const firebaseConfig = {
+apiKey: "AIzaSyDqz49BhXp6Q_Z7en5oLc7_W3Yz2UtTF74",
+authDomain: "top10th-f8fd5.firebaseapp.com",
+projectId: "top10th-f8fd5",
+storageBucket: "top10th-f8fd5.firebasestorage.app",
+messagingSenderId: "333453848720",
+appId: "1:333453848720:web:29a45710bbd183d511a815",
+measurementId: "G-X5YZT1WVLQ"
+};
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db = getFirestore(app);
+
+/* VARIABLES */
+
+let currentLanguage = "en";
+
+let currentQuestion = 0;
+
+let xp = 0;
+
+let solved = 0;
+
+let correct = 0;
+
+let filteredQuestions = [];
+
+/* LANGUAGE */
+
+document.getElementById("languageToggle")
+.addEventListener("change",(e)=>{
+
+currentLanguage = e.target.value;
+
+loadQuestion();
+
 });
 
-document.querySelectorAll('.fade').forEach(el => observer.observe(el));
+/* QUESTIONS */
+
+const questions = [
+
+/* MATH */
+
+{
+subject:"Math",
+question_en:"What is π value?",
+question_hi:"π का मान क्या है?",
+options_en:["2.14","3.14","4.14","5.14"],
+options_hi:["2.14","3.14","4.14","5.14"],
+answer:"3.14"
+},
+
+{
+subject:"Math",
+question_en:"5 × 5 = ?",
+question_hi:"5 × 5 कितना होता है?",
+options_en:["10","15","20","25"],
+options_hi:["10","15","20","25"],
+answer:"25"
+},
+
+{
+subject:"Math",
+question_en:"Square root of 81?",
+question_hi:"81 का वर्गमूल क्या है?",
+options_en:["7","8","9","10"],
+options_hi:["7","8","9","10"],
+answer:"9"
+},
+
+{
+subject:"Math",
+question_en:"12 ÷ 3 = ?",
+question_hi:"12 ÷ 3 कितना होता है?",
+options_en:["2","3","4","5"],
+options_hi:["2","3","4","5"],
+answer:"4"
+},
+
+{
+subject:"Math",
+question_en:"50% of 200?",
+question_hi:"200 का 50% कितना है?",
+options_en:["50","100","150","200"],
+options_hi:["50","100","150","200"],
+answer:"100"
+},
+
+/* SCIENCE */
+
+{
+subject:"Science",
+question_en:"Formula of water?",
+question_hi:"पानी का सूत्र क्या है?",
+options_en:["H2O","CO2","O2","NaCl"],
+options_hi:["H2O","CO2","O2","NaCl"],
+answer:"H2O"
+},
+
+{
+subject:"Science",
+question_en:"Sun is a?",
+question_hi:"सूर्य क्या है?",
+options_en:["Planet","Star","Moon","Satellite"],
+options_hi:["ग्रह","तारा","चंद्रमा","उपग्रह"],
+answer:"Star"
+},
+
+{
+subject:"Science",
+question_en:"Plants absorb?",
+question_hi:"पौधे क्या लेते हैं?",
+options_en:["Oxygen","Carbon Dioxide","Hydrogen","Nitrogen"],
+options_hi:["ऑक्सीजन","कार्बन डाइऑक्साइड","हाइड्रोजन","नाइट्रोजन"],
+answer:"Carbon Dioxide"
+},
+
+{
+subject:"Science",
+question_en:"Human heart chambers?",
+question_hi:"मानव हृदय में कितने कक्ष होते हैं?",
+options_en:["2","3","4","5"],
+options_hi:["2","3","4","5"],
+answer:"4"
+},
+
+{
+subject:"Science",
+question_en:"Boiling point of water?",
+question_hi:"पानी का क्वथनांक क्या है?",
+options_en:["50°C","100°C","150°C","200°C"],
+options_hi:["50°C","100°C","150°C","200°C"],
+answer:"100°C"
+},
+
+/* ENGLISH */
+
+{
+subject:"English",
+question_en:"Synonym of Happy?",
+question_hi:"Happy का समानार्थी शब्द क्या है?",
+options_en:["Sad","Joyful","Weak","Angry"],
+options_hi:["उदास","खुश","कमज़ोर","गुस्सा"],
+answer:"Joyful"
+},
+
+{
+subject:"English",
+question_en:"Past tense of Go?",
+question_hi:"Go का past tense क्या है?",
+options_en:["Goed","Gone","Went","Going"],
+options_hi:["Goed","Gone","Went","Going"],
+answer:"Went"
+},
+
+{
+subject:"English",
+question_en:"Choose noun.",
+question_hi:"संज्ञा चुनें।",
+options_en:["Run","School","Quickly","Beautiful"],
+options_hi:["Run","School","Quickly","Beautiful"],
+answer:"School"
+},
+
+{
+subject:"English",
+question_en:"Antonym of Big?",
+question_hi:"Big का विलोम शब्द?",
+options_en:["Huge","Large","Small","Tall"],
+options_hi:["विशाल","बड़ा","छोटा","लंबा"],
+answer:"Small"
+},
+
+{
+subject:"English",
+question_en:"Correct spelling?",
+question_hi:"सही spelling चुनें।",
+options_en:["Beautifull","Beautiful","Beatiful","Beautifal"],
+options_hi:["Beautifull","Beautiful","Beatiful","Beautifal"],
+answer:"Beautiful"
+}
+
+];
+
+/* DUPLICATE TO 75 */
+
+while(questions.length < 75){
+
+questions.push(...questions.slice(0,5));
+
+}
+
+filteredQuestions = [...questions];
+
+/* SIGNUP */
+
+window.signup = async function(){
+
+const name =
+document.getElementById("name").value;
+
+const email =
+document.getElementById("email").value;
+
+const password =
+document.getElementById("password").value;
+
+try{
+
+const res =
+await createUserWithEmailAndPassword(
+auth,
+email,
+password
+);
+
+await setDoc(doc(db,"users",res.user.uid),{
+
+name,
+xp:0,
+solved:0,
+correct:0,
+streak:1
+
+});
+
+alert("Account Created");
+
+}catch(err){
+
+alert(err.message);
+
+}
+
+}
+
+/* LOGIN */
+
+window.login = async function(){
+
+const email =
+document.getElementById("email").value;
+
+const password =
+document.getElementById("password").value;
+
+try{
+
+await signInWithEmailAndPassword(
+auth,
+email,
+password
+);
+
+}catch(err){
+
+alert(err.message);
+
+}
+
+}
+
+/* LOGOUT */
+
+window.logout = async function(){
+
+await signOut(auth);
+
+}
+
+/* AUTH STATE */
+
+onAuthStateChanged(auth, async(user)=>{
+
+if(user){
+
+document.getElementById("authSection")
+.classList.add("hidden");
+
+document.getElementById("app")
+.classList.remove("hidden");
+
+const snap =
+await getDoc(doc(db,"users",user.uid));
+
+const data = snap.data();
+
+xp = data.xp || 0;
+
+solved = data.solved || 0;
+
+correct = data.correct || 0;
+
+updateUI(data);
+
+loadQuestion();
+
+loadLeaderboard();
+
+}else{
+
+document.getElementById("authSection")
+.classList.remove("hidden");
+
+document.getElementById("app")
+.classList.add("hidden");
+
+}
+
+});
+
+/* UPDATE UI */
+
+function updateUI(data){
+
+const accuracy =
+solved === 0
+? 0
+: Math.floor((correct/solved)*100);
+
+document.getElementById("navUser")
+.innerText = data.name;
+
+document.getElementById("xp")
+.innerText = xp;
+
+document.getElementById("solved")
+.innerText = solved;
+
+document.getElementById("accuracy")
+.innerText = accuracy + "%";
+
+document.getElementById("streak")
+.innerText = data.streak + " 🔥";
+
+}
+
+/* LOAD QUESTION */
+
+function loadQuestion(){
+
+if(currentQuestion >= filteredQuestions.length){
+
+alert("Quiz Completed");
+
+currentQuestion = 0;
+
+}
+
+const q = filteredQuestions[currentQuestion];
+
+const question =
+currentLanguage === "hi"
+? q.question_hi
+: q.question_en;
+
+const options =
+currentLanguage === "hi"
+? q.options_hi
+: q.options_en;
+
+document.getElementById("questionText")
+.innerText = question;
+
+document.getElementById("questionCount")
+.innerText =
+`Question ${currentQuestion+1}/${filteredQuestions.length}`;
+
+document.getElementById("questionProgress")
+.style.width =
+`${((currentQuestion+1)/filteredQuestions.length)*100}%`;
+
+const answers =
+document.getElementById("answers");
+
+answers.innerHTML = "";
+
+options.forEach((option,index)=>{
+
+const div =
+document.createElement("div");
+
+div.className =
+"answer glass p-5 rounded-2xl";
+
+div.innerText = option;
+
+div.onclick = ()=>{
+
+checkAnswer(q.options_en[index]);
+
+};
+
+answers.appendChild(div);
+
+});
+
+}
+
+/* CHECK ANSWER */
+
+async function checkAnswer(answer){
+
+const q = filteredQuestions[currentQuestion];
+
+solved++;
+
+if(answer === q.answer){
+
+xp += 10;
+
+correct++;
+
+alert("Correct ✅");
+
+}else{
+
+xp -= 2;
+
+if(xp < 0){
+xp = 0;
+}
+
+alert("Wrong ❌");
+
+}
+
+const user = auth.currentUser;
+
+await updateDoc(doc(db,"users",user.uid),{
+
+xp,
+solved,
+correct
+
+});
+
+updateUI({
+name:user.email,
+streak:1
+});
+
+currentQuestion++;
+
+loadQuestion();
+
+loadLeaderboard();
+
+}
+
+/* FILTER */
+
+window.filterQuestions = function(subject){
+
+if(subject === "All"){
+
+filteredQuestions = [...questions];
+
+}else{
+
+filteredQuestions =
+questions.filter(q=>q.subject===subject);
+
+}
+
+currentQuestion = 0;
+
+loadQuestion();
+
+}
+
+/* LEADERBOARD */
+
+async function loadLeaderboard(){
+
+const leaderboard =
+document.getElementById("leaderboard");
+
+leaderboard.innerHTML = "";
+
+const q =
+query(
+collection(db,"users"),
+orderBy("xp","desc"),
+limit(10)
+);
+
+const querySnapshot =
+await getDocs(q);
+
+let rank = 1;
+
+querySnapshot.forEach((docSnap)=>{
+
+const user = docSnap.data();
+
+leaderboard.innerHTML += `
+
+<div class="glass rounded-3xl p-6 flex justify-between items-center">
+
+<div class="flex items-center gap-4">
+
+<div class="w-14 h-14 rounded-full bg-white text-black flex items-center justify-center font-bold">
+${rank}
+</div>
+
+<div>
+
+<h2 class="font-bold text-xl">
+${user.name}
+</h2>
+
+<p class="text-gray-400">
+XP ${user.xp}
+</p>
+
+</div>
+
+</div>
+
+<div class="text-2xl">
+🏆
+</div>
+
+</div>
+
+`;
+
+rank++;
+
+});
+
+}
+
+/* TIMER */
+
+let time = 30;
+
+setInterval(()=>{
+
+const timer =
+document.getElementById("timer");
+
+if(timer){
+
+time--;
+
+timer.innerText = time;
+
+if(time <= 0){
+
+time = 30;
+
+currentQuestion++;
+
+loadQuestion();
+
+}
+
+}
+
+},1000);
 
 </script>
 
