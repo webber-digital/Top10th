@@ -1,0 +1,776 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  />
+
+  <title>Top10th | Board Prep</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  />
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Plus Jakarta Sans',sans-serif;
+      background:#020617;
+      color:white;
+      min-height:100vh;
+      overflow-x:hidden;
+      padding-bottom:40px;
+    }
+
+    body::before{
+      content:'';
+      position:fixed;
+      inset:0;
+
+      background:
+      radial-gradient(circle at top left,
+      rgba(14,165,233,0.18),
+      transparent 28%),
+
+      radial-gradient(circle at bottom right,
+      rgba(139,92,246,0.16),
+      transparent 28%);
+
+      z-index:-2;
+    }
+
+    body::after{
+      content:'';
+      position:fixed;
+      inset:0;
+
+      background:
+      linear-gradient(
+        to bottom,
+        rgba(2,6,23,0.35),
+        rgba(2,6,23,0.92)
+      );
+
+      z-index:-1;
+    }
+
+    .glass{
+      background:rgba(255,255,255,0.04);
+
+      border:1px solid rgba(255,255,255,0.08);
+
+      backdrop-filter:blur(18px);
+
+      -webkit-backdrop-filter:blur(18px);
+
+      box-shadow:
+      0 10px 30px rgba(0,0,0,0.25);
+    }
+
+    .input{
+      width:100%;
+
+      background:rgba(255,255,255,0.03);
+
+      border:1px solid rgba(255,255,255,0.08);
+
+      padding:16px 18px;
+
+      border-radius:22px;
+
+      outline:none;
+
+      color:white;
+
+      font-weight:600;
+
+      transition:0.25s;
+    }
+
+    .input:focus{
+
+      border-color:#38bdf8;
+
+      box-shadow:
+      0 0 0 5px rgba(56,189,248,0.12);
+
+      background:rgba(255,255,255,0.05);
+    }
+
+    .input::placeholder{
+      color:#64748b;
+    }
+
+    .primary-btn{
+
+      width:100%;
+
+      border:none;
+
+      padding:16px;
+
+      border-radius:22px;
+
+      font-weight:800;
+
+      cursor:pointer;
+
+      transition:0.25s;
+
+      color:white;
+
+      background:
+      linear-gradient(
+        135deg,
+        #0ea5e9,
+        #6366f1
+      );
+    }
+
+    .primary-btn:hover{
+      transform:translateY(-2px);
+    }
+
+    .primary-btn:active{
+      transform:scale(0.98);
+    }
+
+    .switch-wrap{
+
+      position:relative;
+
+      display:flex;
+
+      padding:6px;
+
+      border-radius:22px;
+
+      overflow:hidden;
+    }
+
+    .switch-slider{
+
+      position:absolute;
+
+      top:6px;
+      left:6px;
+
+      width:calc(50% - 6px);
+
+      height:calc(100% - 12px);
+
+      border-radius:16px;
+
+      background:
+      linear-gradient(
+        135deg,
+        #0ea5e9,
+        #6366f1
+      );
+
+      transition:0.32s cubic-bezier(.68,-0.55,.27,1.55);
+
+      z-index:0;
+    }
+
+    .switch-slider.right{
+      transform:translateX(100%);
+    }
+
+    .toggle-btn{
+
+      flex:1;
+
+      position:relative;
+
+      z-index:2;
+
+      border:none;
+
+      background:transparent;
+
+      color:#94a3b8;
+
+      font-weight:800;
+
+      padding:12px;
+
+      border-radius:16px;
+
+      cursor:pointer;
+
+      transition:0.25s;
+    }
+
+    .toggle-btn.active{
+      color:white;
+    }
+
+    .fade{
+      animation:fade .35s ease;
+    }
+
+    @keyframes fade{
+
+      from{
+        opacity:0;
+        transform:translateY(12px);
+      }
+
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    .option-btn{
+
+      width:100%;
+
+      border:none;
+
+      text-align:left;
+
+      padding:18px;
+
+      border-radius:24px;
+
+      background:rgba(255,255,255,0.03);
+
+      border:1px solid rgba(255,255,255,0.08);
+
+      color:white;
+
+      font-weight:700;
+
+      cursor:pointer;
+
+      transition:0.25s;
+    }
+
+    .option-btn:hover{
+
+      transform:translateY(-2px);
+
+      border-color:#38bdf8;
+
+      background:rgba(255,255,255,0.05);
+    }
+
+    .option-btn.correct{
+
+      border-color:#22c55e;
+
+      background:rgba(34,197,94,0.12);
+    }
+
+    .option-btn.wrong{
+
+      border-color:#ef4444;
+
+      background:rgba(239,68,68,0.12);
+    }
+
+    .stats-card{
+
+      padding:20px;
+
+      border-radius:28px;
+
+      text-align:center;
+    }
+
+    .badge{
+
+      display:inline-flex;
+
+      align-items:center;
+
+      justify-content:center;
+
+      padding:8px 14px;
+
+      border-radius:999px;
+
+      font-size:12px;
+
+      font-weight:800;
+    }
+
+    .premium{
+
+      color:#38bdf8;
+
+      background:rgba(14,165,233,0.12);
+    }
+
+    .free{
+
+      color:#94a3b8;
+
+      background:rgba(255,255,255,0.06);
+    }
+
+    .quiz-title{
+      line-height:1.7;
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <!-- AUTH -->
+
+  <section
+    id="auth-view"
+    class="
+      min-h-screen
+      flex
+      items-center
+      justify-center
+      p-5
+    "
+  >
+
+    <div
+      class="
+        glass
+        w-full
+        max-w-md
+        rounded-[42px]
+        p-8
+        space-y-6
+        fade
+      "
+    >
+
+      <!-- TOP -->
+
+      <div class="text-center">
+
+        <h1
+          class="
+            text-5xl
+            font-black
+            tracking-tight
+            text-sky-400
+          "
+        >
+          TOP10TH
+        </h1>
+
+        <p class="text-slate-400 mt-3">
+          Smart Board Exam Preparation
+        </p>
+
+      </div>
+
+      <!-- TOGGLE -->
+
+      <div
+        class="
+          glass
+          switch-wrap
+        "
+      >
+
+        <div
+          id="switch-slider"
+          class="switch-slider"
+        ></div>
+
+        <button
+          id="login-tab"
+          class="toggle-btn active"
+        >
+          Login
+        </button>
+
+        <button
+          id="signup-tab"
+          class="toggle-btn"
+        >
+          Create Account
+        </button>
+
+      </div>
+
+      <!-- LOGIN -->
+
+      <div
+        id="login-box"
+        class="space-y-4 fade"
+      >
+
+        <input
+          id="login-email"
+          type="email"
+          placeholder="Email Address"
+          class="input"
+        />
+
+        <input
+          id="login-password"
+          type="password"
+          placeholder="Password"
+          class="input"
+        />
+
+        <button
+          id="login-btn"
+          class="primary-btn"
+        >
+          Login →
+        </button>
+
+      </div>
+
+      <!-- SIGNUP -->
+
+      <div
+        id="signup-box"
+        class="space-y-4 hidden fade"
+      >
+
+        <!-- STEP 1 -->
+
+        <div
+          id="signup-step-1"
+          class="space-y-4"
+        >
+
+          <input
+            id="signup-email"
+            type="email"
+            placeholder="Email Address"
+            class="input"
+          />
+
+          <input
+            id="signup-password"
+            type="password"
+            placeholder="Password"
+            class="input"
+          />
+
+          <button
+            id="continue-btn"
+            class="primary-btn"
+          >
+            Continue →
+          </button>
+
+        </div>
+
+        <!-- STEP 2 -->
+
+        <div
+          id="signup-step-2"
+          class="space-y-4 hidden"
+        >
+
+          <input
+            id="signup-name"
+            type="text"
+            placeholder="What should we call you?"
+            class="input"
+          />
+
+          <button
+            id="signup-btn"
+            class="primary-btn"
+          >
+            Create My Account 🚀
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- APP -->
+
+  <main
+    id="app-view"
+    class="
+      hidden
+      max-w-3xl
+      mx-auto
+      px-4
+      py-8
+      space-y-6
+    "
+  >
+
+    <!-- HEADER -->
+
+    <div
+      class="
+        flex
+        justify-between
+        items-center
+      "
+    >
+
+      <div>
+
+        <p
+          class="
+            text-xs
+            text-slate-500
+            uppercase
+            font-bold
+            tracking-wider
+          "
+        >
+          Welcome Back
+        </p>
+
+        <h2
+          id="display-name"
+          class="
+            text-3xl
+            font-black
+            text-sky-400
+          "
+        >
+          USER
+        </h2>
+
+      </div>
+
+      <button
+        id="logout-btn"
+        class="
+          glass
+          px-5
+          py-3
+          rounded-2xl
+          text-red-400
+          font-bold
+        "
+      >
+        Logout
+      </button>
+
+    </div>
+
+    <!-- STATS -->
+
+    <div
+      class="
+        grid
+        grid-cols-3
+        gap-3
+      "
+    >
+
+      <div
+        class="
+          glass
+          stats-card
+        "
+      >
+
+        <p
+          class="
+            text-xs
+            text-slate-500
+            font-bold
+          "
+        >
+          XP
+        </p>
+
+        <h2
+          id="xp"
+          class="
+            text-3xl
+            font-black
+            text-yellow-400
+          "
+        >
+          0
+        </h2>
+
+      </div>
+
+      <div
+        class="
+          glass
+          stats-card
+        "
+      >
+
+        <p
+          class="
+            text-xs
+            text-slate-500
+            font-bold
+          "
+        >
+          STREAK
+        </p>
+
+        <h2
+          id="streak"
+          class="
+            text-3xl
+            font-black
+            text-orange-400
+          "
+        >
+          0
+        </h2>
+
+      </div>
+
+      <div
+        class="
+          glass
+          stats-card
+        "
+      >
+
+        <p
+          class="
+            text-xs
+            text-slate-500
+            font-bold
+          "
+        >
+          STATUS
+        </p>
+
+        <div
+          id="premium-tag"
+          class="
+            badge
+            free
+            mt-2
+          "
+        >
+          FREE
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- QUIZ -->
+
+    <section
+      id="quiz-box"
+      class="
+        glass
+        rounded-[40px]
+        p-6
+        md:p-8
+      "
+    >
+
+      <!-- TOP -->
+
+      <div
+        class="
+          flex
+          justify-between
+          items-center
+          mb-8
+        "
+      >
+
+        <span
+          id="question-count"
+          class="
+            text-xs
+            text-slate-500
+            uppercase
+            font-bold
+            tracking-wider
+          "
+        >
+          Question 1/75
+        </span>
+
+        <span
+          id="subject-tag"
+          class="
+            badge
+            premium
+          "
+        >
+          Math
+        </span>
+
+      </div>
+
+      <!-- QUESTION -->
+
+      <h2
+        id="question"
+        class="
+          text-2xl
+          md:text-3xl
+          font-bold
+          mb-8
+          quiz-title
+        "
+      >
+        Loading...
+      </h2>
+
+      <!-- OPTIONS -->
+
+      <div
+        id="options"
+        class="grid gap-4"
+      ></div>
+
+    </section>
+
+  </main>
+
+  <script
+    type="module"
+    src="./app.js"
+  ></script>
+
+</body>
+
+</html>
