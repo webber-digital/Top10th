@@ -1,17 +1,57 @@
-<!-- index.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
   <meta charset="UTF-8" />
 
   <meta
     name="viewport"
-    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    content="width=device-width, initial-scale=1.0"
   />
 
-  <title>Top10th | Board Prep</title>
+  <title>Top10th | Smart Board Prep</title>
+
+  <!-- GOOGLE SEARCH CONSOLE -->
+
+  <meta
+    name="google-site-verification"
+    content="QI_lpqlDIVQ921ejeY9zp8mcxADhunyisoW8wQeBZ2k"
+  />
+
+  <!-- SEO -->
+
+  <meta
+    name="description"
+    content="Top10th helps students prepare for board exams with smart quizzes, XP, streaks, and daily practice."
+  />
+
+  <meta
+    name="keywords"
+    content="Top10th, class 10, board prep, quiz app, NCERT, study app"
+  />
+
+  <meta
+    name="author"
+    content="Top10th"
+  />
+
+  <!-- OPEN GRAPH -->
+
+  <meta
+    property="og:title"
+    content="Top10th | Smart Board Prep"
+  />
+
+  <meta
+    property="og:description"
+    content="Smart board exam preparation with quizzes and streaks."
+  />
+
+  <meta
+    property="og:type"
+    content="website"
+  />
 
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -39,55 +79,55 @@
       box-sizing:border-box;
     }
 
-    html{
-      scroll-behavior:smooth;
-    }
-
     body{
-      font-family:'Plus Jakarta Sans',sans-serif;
+
+      font-family:
+      'Plus Jakarta Sans',
+      sans-serif;
+
       background:#020617;
+
       color:white;
+
       min-height:100vh;
+
       overflow-x:hidden;
-      padding-bottom:40px;
+
+      padding:20px;
     }
 
     body::before{
+
       content:'';
+
       position:fixed;
+
       inset:0;
 
       background:
-      radial-gradient(circle at top left,
-      rgba(14,165,233,0.18),
-      transparent 28%),
 
-      radial-gradient(circle at bottom right,
-      rgba(139,92,246,0.16),
-      transparent 28%);
+      radial-gradient(
+        circle at top left,
+        rgba(14,165,233,0.18),
+        transparent 30%
+      ),
 
-      z-index:-2;
-    }
-
-    body::after{
-      content:'';
-      position:fixed;
-      inset:0;
-
-      background:
-      linear-gradient(
-        to bottom,
-        rgba(2,6,23,0.35),
-        rgba(2,6,23,0.92)
+      radial-gradient(
+        circle at bottom right,
+        rgba(99,102,241,0.16),
+        transparent 30%
       );
 
       z-index:-1;
     }
 
     .glass{
-      background:rgba(255,255,255,0.04);
 
-      border:1px solid rgba(255,255,255,0.08);
+      background:
+      rgba(255,255,255,0.04);
+
+      border:
+      1px solid rgba(255,255,255,0.08);
 
       backdrop-filter:blur(18px);
 
@@ -98,15 +138,18 @@
     }
 
     .input{
+
       width:100%;
-
-      background:rgba(255,255,255,0.03);
-
-      border:1px solid rgba(255,255,255,0.08);
 
       padding:16px 18px;
 
       border-radius:22px;
+
+      border:
+      1px solid rgba(255,255,255,0.08);
+
+      background:
+      rgba(255,255,255,0.03);
 
       outline:none;
 
@@ -121,10 +164,11 @@
 
       border-color:#38bdf8;
 
+      background:
+      rgba(255,255,255,0.06);
+
       box-shadow:
       0 0 0 5px rgba(56,189,248,0.12);
-
-      background:rgba(255,255,255,0.05);
     }
 
     .input::placeholder{
@@ -141,13 +185,13 @@
 
       border-radius:22px;
 
-      font-weight:800;
-
       cursor:pointer;
 
-      transition:0.25s;
-
       color:white;
+
+      font-weight:800;
+
+      transition:0.25s;
 
       background:
       linear-gradient(
@@ -164,6 +208,8 @@
     .primary-btn:active{
       transform:scale(0.98);
     }
+
+    /* TOGGLE */
 
     .switch-wrap{
 
@@ -198,13 +244,15 @@
         #6366f1
       );
 
-      transition:0.32s cubic-bezier(.68,-0.55,.27,1.55);
+      transition:
+      transform 0.35s ease;
 
-      z-index:0;
+      z-index:1;
     }
 
     .switch-slider.right{
-      transform:translateX(100%);
+      transform:
+      translateX(calc(100% + 6px));
     }
 
     .toggle-btn{
@@ -219,13 +267,13 @@
 
       background:transparent;
 
-      color:#94a3b8;
-
-      font-weight:800;
-
       padding:12px;
 
       border-radius:16px;
+
+      color:#94a3b8;
+
+      font-weight:800;
 
       cursor:pointer;
 
@@ -265,9 +313,11 @@
 
       border-radius:24px;
 
-      background:rgba(255,255,255,0.03);
+      background:
+      rgba(255,255,255,0.03);
 
-      border:1px solid rgba(255,255,255,0.08);
+      border:
+      1px solid rgba(255,255,255,0.08);
 
       color:white;
 
@@ -284,21 +334,24 @@
 
       border-color:#38bdf8;
 
-      background:rgba(255,255,255,0.05);
+      background:
+      rgba(255,255,255,0.05);
     }
 
     .option-btn.correct{
 
       border-color:#22c55e;
 
-      background:rgba(34,197,94,0.12);
+      background:
+      rgba(34,197,94,0.12);
     }
 
     .option-btn.wrong{
 
       border-color:#ef4444;
 
-      background:rgba(239,68,68,0.12);
+      background:
+      rgba(239,68,68,0.12);
     }
 
     .stats-card{
@@ -331,18 +384,16 @@
 
       color:#38bdf8;
 
-      background:rgba(14,165,233,0.12);
+      background:
+      rgba(14,165,233,0.12);
     }
 
     .free{
 
       color:#94a3b8;
 
-      background:rgba(255,255,255,0.06);
-    }
-
-    .quiz-title{
-      line-height:1.7;
+      background:
+      rgba(255,255,255,0.06);
     }
 
   </style>
@@ -360,7 +411,6 @@
       flex
       items-center
       justify-center
-      p-5
     "
   >
 
@@ -369,14 +419,14 @@
         glass
         w-full
         max-w-md
-        rounded-[42px]
+        rounded-[40px]
         p-8
         space-y-6
         fade
       "
     >
 
-      <!-- TOP -->
+      <!-- LOGO -->
 
       <div class="text-center">
 
@@ -384,14 +434,18 @@
           class="
             text-5xl
             font-black
-            tracking-tight
             text-sky-400
           "
         >
           TOP10TH
         </h1>
 
-        <p class="text-slate-400 mt-3">
+        <p
+          class="
+            text-slate-400
+            mt-3
+          "
+        >
           Smart Board Exam Preparation
         </p>
 
@@ -407,13 +461,16 @@
       >
 
         <div
-          id="switch-slider"
+          id="toggle-slider"
           class="switch-slider"
         ></div>
 
         <button
           id="login-tab"
-          class="toggle-btn active"
+          class="
+            toggle-btn
+            active
+          "
         >
           Login
         </button>
@@ -431,7 +488,10 @@
 
       <div
         id="login-box"
-        class="space-y-4 fade"
+        class="
+          space-y-4
+          fade
+        "
       >
 
         <input
@@ -461,7 +521,11 @@
 
       <div
         id="signup-box"
-        class="space-y-4 hidden fade"
+        class="
+          hidden
+          space-y-4
+          fade
+        "
       >
 
         <!-- STEP 1 -->
@@ -498,13 +562,16 @@
 
         <div
           id="signup-step-2"
-          class="space-y-4 hidden"
+          class="
+            hidden
+            space-y-4
+          "
         >
 
           <input
             id="signup-name"
             type="text"
-            placeholder="What should we call you?"
+            placeholder="Your Name"
             class="input"
           />
 
@@ -531,13 +598,10 @@
       hidden
       max-w-3xl
       mx-auto
-      px-4
       py-8
       space-y-6
     "
   >
-
-    <!-- HEADER -->
 
     <div
       class="
@@ -555,7 +619,6 @@
             text-slate-500
             uppercase
             font-bold
-            tracking-wider
           "
         >
           Welcome Back
@@ -704,8 +767,6 @@
       "
     >
 
-      <!-- TOP -->
-
       <div
         class="
           flex
@@ -722,10 +783,9 @@
             text-slate-500
             uppercase
             font-bold
-            tracking-wider
           "
         >
-          Question 1/75
+          Question 1/30
         </span>
 
         <span
@@ -740,8 +800,6 @@
 
       </div>
 
-      <!-- QUESTION -->
-
       <h2
         id="question"
         class="
@@ -749,17 +807,18 @@
           md:text-3xl
           font-bold
           mb-8
-          quiz-title
+          leading-relaxed
         "
       >
         Loading...
       </h2>
 
-      <!-- OPTIONS -->
-
       <div
         id="options"
-        class="grid gap-4"
+        class="
+          grid
+          gap-4
+        "
       ></div>
 
     </section>
