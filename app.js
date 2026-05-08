@@ -3,84 +3,110 @@ import { QUESTIONS } from './database.js';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
 const supabase = createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_KEY);
-let state = { 
-    user: null, 
-    lang: 'en', 
-    idx: 0, 
-    activeQ: [...QUESTIONS],
-    score: 0,
-    streak: 0
+let state = { user: null, name: '', score: 0, streak: 0, idx: 0 };
+
+// --- LOGIN & SIGNUP LOGIC ---
+document.getElementById('loginBtn').onclick = async () => {
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('pass').value;
+    const nameInput = document.getElementById('user-name').value;
+
+    if(!nameInput || !email || !password) return alert("Saari details bhariye!");
+
+    // 1. Sign Up / Sign In
+    const { data, error } = await supabase.auth.signUp({ email, password });
+    
+    if(data.user) {
+        // 2. Profile create/update (Aapke naye columns ke hisaab se)
+        await supabase.from('profiles').upsert({ 
+            id: data.user.id, 
+            full_name: nameInput, // Aapne DB mein yahi rakha hai
+            email: email,         // Aapne DB mein yahi rakha hai
+            xp: 0,
+            streak: 0,
+            solved: 0
+        });
+        alert("Account ban gaya! Ab login karein.");
+        location.reload(); 
+    } else if (error) {
+        // Agar account pehle se hai toh direct login
+        const { error: logErr } = await supabase.auth.signInWithPassword({ email, password });
+        if(logErr) alert("Galti: " + logErr.message);
+    }
 };
 
-// --- QUIZ ENGINE ---
-function render() {
-    if(state.idx >= state.activeQ.length) { 
-        showLeaderboard();
-        return; 
+// --- DATA LOAD ---
+async function loadUserData(user) {
+    const { data } = await supabase.from('profiles').select('*').eq('id', user.id).single();
+    if(data) {
+        state.name = data.full_name;
+        document.getElementById('display-name').innerText = data.full_name.toUpperCase();
+        document.getElementById('high-score').innerText = data.xp || 0; // XP ko high score ki tarah dikhayenge
     }
+}
+
+// --- QUIZ RENDER ---
+function render() {
+    if(state.idx >= QUESTIONS.length) {
+        saveFinalData();
+        return;
+    }
+    const q = QUESTIONS[state.idx];
+    document.getElementById('q-text').innerText = q.q_hi;
+    document.getElementById('q-idx').innerText = `Sawāl ${state.idx + 1}/${QUESTIONS.length}`;
     
-    const q = state.activeQ[state.idx];
-    document.getElementById('q-text').innerText = state.lang === 'en' ? q.q_en : q.q_hi;
-    document.getElementById('q-idx').innerText = `QUESTION ${state.idx + 1}/${state.activeQ.length}`;
-    
-    const opts = state.lang === 'en' ? q.opts_en : q.opts_hi;
     const grid = document.getElementById('options');
     grid.innerHTML = '';
-    
-    opts.forEach(o => {
+
+    q.opts_hi.forEach(o => {
         const btn = document.createElement('button');
-        btn.className = "glass p-6 rounded-3xl text-left transition-all duration-300 font-bold border border-white/5 hover:border-sky-500";
+        btn.className = "glass p-5 rounded-3xl text-left font-bold transition-all hover:border-sky-500 hover:bg-white/5";
         btn.innerText = o;
-        
         btn.onclick = () => {
-            const allBtns = grid.querySelectorAll('button');
-            allBtns.forEach(b => b.style.pointerEvents = 'none'); // Disable more clicks
+            const allBtns = document.querySelectorAll('#options button');
+            allBtns.forEach(b => b.style.pointerEvents = 'none');
 
             if(o === q.ans) {
-                // ✅ CORRECT
-                btn.style.background = "rgba(34, 197, 94, 0.2)";
                 btn.style.borderColor = "#22c55e";
+                btn.style.background = "rgba(34, 197, 94, 0.1)";
                 state.score += 10;
                 state.streak += 1;
             } else {
-                // ❌ WRONG
-                btn.style.background = "rgba(239, 44, 44, 0.2)";
-                btn.style.borderColor = "#ef2c2c";
+                btn.style.borderColor = "#ef4444";
+                btn.style.background = "rgba(239, 68, 68, 0.1)";
                 state.streak = 0;
-                // Show Correct Answer
-                allBtns.forEach(b => {
-                    if(b.innerText === q.ans) b.style.borderColor = "#22c55e";
-                });
+                allBtns.forEach(b => { if(b.innerText === q.ans) b.style.borderColor = "#22c55e"; });
             }
-
-            updateStats();
+            document.getElementById('streak-tag').innerText = `STREAK: ${state.streak} 🔥`;
             setTimeout(() => { state.idx++; render(); }, 1000);
         };
         grid.appendChild(btn);
     });
 }
 
-function updateStats() {
-    document.getElementById('score').innerText = state.score;
-    document.getElementById('streak').innerText = state.streak;
-}
-
-function showLeaderboard() {
-    document.getElementById('quiz-container').innerHTML = `
-        <div class="text-center p-10 glass rounded-[40px]">
-            <h2 class="text-3xl font-black mb-4">🏆 FINISHED!</h2>
-            <p class="text-gray-400 mb-8">You earned ${state.score} total points.</p>
-            <div class="flex flex-col gap-3">
-                <button onclick="location.reload()" class="py-4 bg-sky-500 text-black font-black rounded-2xl">PLAY AGAIN</button>
-            </div>
+// --- SAVE DATA TO SUPABASE ---
+async function saveFinalData() {
+    document.getElementById('quiz-box').innerHTML = `
+        <div class="text-center py-10">
+            <h2 class="text-4xl font-black mb-2 text-sky-400">SHABAASH! 🏆</h2>
+            <p class="text-gray-400">Aapne total <b>${state.score} XP</b> kamaye!</p>
+            <button onclick="location.reload()" class="mt-8 px-10 py-4 bg-sky-500 text-black font-black rounded-2xl">Fir se kheleinn</button>
         </div>
     `;
+
+    // Aapke photo wale columns ke hisaab se update
+    await supabase.from('profiles').update({ 
+        xp: state.score,          
+        streak: state.streak,      
+        solved: QUESTIONS.length   
+    }).eq('id', state.user.id);
 }
 
-// Auth State Sync
-supabase.auth.onAuthStateChange((event, session) => {
-    if(session) {
+// Auth Listener
+supabase.auth.onAuthStateChange(async (event, session) => {
+    if (session) {
         state.user = session.user;
+        await loadUserData(session.user);
         document.getElementById('auth-view').classList.add('hidden');
         document.getElementById('app-view').classList.remove('hidden');
         render();
