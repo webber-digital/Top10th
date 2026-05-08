@@ -3,7 +3,7 @@
 export const QUESTIONS = [
 
   // =========================
-  // MATH (1–25)
+  // MATH
   // =========================
 
   {
@@ -11,8 +11,7 @@ export const QUESTIONS = [
     subject: "Math",
     q_en: "What is the value of sin 30°?",
     q_hi: "sin 30° का मान क्या है?",
-    options_en: ["1", "1/2", "0", "√3/2"],
-    options_hi: ["1", "1/2", "0", "√3/2"],
+    options: ["1", "1/2", "0", "√3/2"],
     answer: "1/2"
   },
 
@@ -21,8 +20,7 @@ export const QUESTIONS = [
     subject: "Math",
     q_en: "What is the area of a circle?",
     q_hi: "वृत्त का क्षेत्रफल क्या होता है?",
-    options_en: ["πr²", "2πr", "πd", "r²"],
-    options_hi: ["πr²", "2πr", "πd", "r²"],
+    options: ["πr²", "2πr", "πd", "r²"],
     answer: "πr²"
   },
 
@@ -31,8 +29,7 @@ export const QUESTIONS = [
     subject: "Math",
     q_en: "What is the HCF of 135 and 225?",
     q_hi: "135 और 225 का HCF क्या है?",
-    options_en: ["15", "45", "75", "135"],
-    options_hi: ["15", "45", "75", "135"],
+    options: ["15", "45", "75", "135"],
     answer: "45"
   },
 
@@ -41,8 +38,7 @@ export const QUESTIONS = [
     subject: "Math",
     q_en: "What is the degree of a linear equation?",
     q_hi: "रैखिक समीकरण की घात क्या होती है?",
-    options_en: ["1", "2", "3", "0"],
-    options_hi: ["1", "2", "3", "0"],
+    options: ["1", "2", "3", "0"],
     answer: "1"
   },
 
@@ -51,17 +47,11 @@ export const QUESTIONS = [
     subject: "Math",
     q_en: "Pythagoras theorem is used in?",
     q_hi: "पाइथागोरस प्रमेय किसमें उपयोग होता है?",
-    options_en: [
+    options: [
       "Circle",
       "Right Triangle",
       "Square",
       "Rectangle"
-    ],
-    options_hi: [
-      "वृत्त",
-      "समकोण त्रिभुज",
-      "वर्ग",
-      "आयत"
     ],
     answer: "Right Triangle"
   },
@@ -71,8 +61,7 @@ export const QUESTIONS = [
     subject: "Math",
     q_en: "What is the value of cos 0°?",
     q_hi: "cos 0° का मान क्या है?",
-    options_en: ["0", "1", "1/2", "Not Defined"],
-    options_hi: ["0", "1", "1/2", "परिभाषित नहीं"],
+    options: ["0", "1", "1/2", "Not Defined"],
     answer: "1"
   },
 
@@ -81,8 +70,7 @@ export const QUESTIONS = [
     subject: "Math",
     q_en: "Probability of an impossible event is?",
     q_hi: "असंभव घटना की प्रायिकता क्या होती है?",
-    options_en: ["1", "0", "0.5", "-1"],
-    options_hi: ["1", "0", "0.5", "-1"],
+    options: ["1", "0", "0.5", "-1"],
     answer: "0"
   },
 
@@ -91,8 +79,7 @@ export const QUESTIONS = [
     subject: "Math",
     q_en: "Volume of a cube with side a?",
     q_hi: "भुजा a वाले घन का आयतन क्या होगा?",
-    options_en: ["a²", "a³", "4a", "6a²"],
-    options_hi: ["a²", "a³", "4a", "6a²"],
+    options: ["a²", "a³", "4a", "6a²"],
     answer: "a³"
   },
 
@@ -101,13 +88,7 @@ export const QUESTIONS = [
     subject: "Math",
     q_en: "Formula of discriminant?",
     q_hi: "विविक्तकर का सूत्र क्या है?",
-    options_en: [
-      "b² - 4ac",
-      "b - 4ac",
-      "b² + 4ac",
-      "2b - ac"
-    ],
-    options_hi: [
+    options: [
       "b² - 4ac",
       "b - 4ac",
       "b² + 4ac",
@@ -121,13 +102,12 @@ export const QUESTIONS = [
     subject: "Math",
     q_en: "What is tan 45°?",
     q_hi: "tan 45° का मान क्या है?",
-    options_en: ["0", "1", "√3", "1/√3"],
-    options_hi: ["0", "1", "√3", "1/√3"],
+    options: ["0", "1", "√3", "1/√3"],
     answer: "1"
   },
 
   // =========================
-  // SCIENCE (11–20)
+  // SCIENCE
   // =========================
 
   {
@@ -135,8 +115,7 @@ export const QUESTIONS = [
     subject: "Science",
     q_en: "Chemical formula of water?",
     q_hi: "पानी का रासायनिक सूत्र क्या है?",
-    options_en: ["H2O", "CO2", "O2", "NaCl"],
-    options_hi: ["H2O", "CO2", "O2", "NaCl"],
+    options: ["H2O", "CO2", "O2", "NaCl"],
     answer: "H2O"
   },
 
@@ -145,17 +124,11 @@ export const QUESTIONS = [
     subject: "Science",
     q_en: "Powerhouse of the cell?",
     q_hi: "कोशिका का शक्तिगृह किसे कहते हैं?",
-    options_en: [
+    options: [
       "Nucleus",
       "Mitochondria",
       "Ribosome",
       "Cell Wall"
-    ],
-    options_hi: [
-      "केंद्रक",
-      "माइटोकॉन्ड्रिया",
-      "राइबोसोम",
-      "कोशिका भित्ति"
     ],
     answer: "Mitochondria"
   },
@@ -165,12 +138,11 @@ export const QUESTIONS = [
     subject: "Science",
     q_en: "Which gas is released during photosynthesis?",
     q_hi: "प्रकाश संश्लेषण के दौरान कौन सी गैस निकलती है?",
-    options_en: ["CO2", "Oxygen", "Nitrogen", "Hydrogen"],
-    options_hi: [
-      "कार्बन डाइऑक्साइड",
-      "ऑक्सीजन",
-      "नाइट्रोजन",
-      "हाइड्रोजन"
+    options: [
+      "CO2",
+      "Oxygen",
+      "Nitrogen",
+      "Hydrogen"
     ],
     answer: "Oxygen"
   },
@@ -180,8 +152,7 @@ export const QUESTIONS = [
     subject: "Science",
     q_en: "Unit of electric current?",
     q_hi: "विद्युत धारा का मात्रक क्या है?",
-    options_en: ["Volt", "Ampere", "Ohm", "Watt"],
-    options_hi: ["वोल्ट", "एम्पीयर", "ओम", "वाट"],
+    options: ["Volt", "Ampere", "Ohm", "Watt"],
     answer: "Ampere"
   },
 
@@ -190,17 +161,11 @@ export const QUESTIONS = [
     subject: "Science",
     q_en: "Which mirror is used in vehicles?",
     q_hi: "वाहनों में कौन सा दर्पण उपयोग होता है?",
-    options_en: [
+    options: [
       "Concave",
       "Convex",
       "Plane",
       "None"
-    ],
-    options_hi: [
-      "अवतल",
-      "उत्तल",
-      "समतल",
-      "कोई नहीं"
     ],
     answer: "Convex"
   },
@@ -210,17 +175,11 @@ export const QUESTIONS = [
     subject: "Science",
     q_en: "Main component of natural gas?",
     q_hi: "प्राकृतिक गैस का मुख्य घटक क्या है?",
-    options_en: [
+    options: [
       "Methane",
       "Ethane",
       "Propane",
       "Butane"
-    ],
-    options_hi: [
-      "मीथेन",
-      "ईथेन",
-      "प्रोपेन",
-      "ब्यूटेन"
     ],
     answer: "Methane"
   },
@@ -230,17 +189,11 @@ export const QUESTIONS = [
     subject: "Science",
     q_en: "Acid present in lemon?",
     q_hi: "नींबू में कौन सा अम्ल पाया जाता है?",
-    options_en: [
+    options: [
       "Lactic",
       "Citric",
       "Acetic",
       "Oxalic"
-    ],
-    options_hi: [
-      "लैक्टिक",
-      "साइट्रिक",
-      "एसिटिक",
-      "ऑक्सेलिक"
     ],
     answer: "Citric"
   },
@@ -250,8 +203,12 @@ export const QUESTIONS = [
     subject: "Science",
     q_en: "Smallest unit of life?",
     q_hi: "जीवन की सबसे छोटी इकाई क्या है?",
-    options_en: ["Tissue", "Organ", "Cell", "Atom"],
-    options_hi: ["ऊतक", "अंग", "कोशिका", "परमाणु"],
+    options: [
+      "Tissue",
+      "Organ",
+      "Cell",
+      "Atom"
+    ],
     answer: "Cell"
   },
 
@@ -260,17 +217,11 @@ export const QUESTIONS = [
     subject: "Science",
     q_en: "Which gas is filled in chips packets?",
     q_hi: "चिप्स के पैकेट में कौन सी गैस भरी जाती है?",
-    options_en: [
+    options: [
       "Oxygen",
       "Nitrogen",
       "Argon",
       "Helium"
-    ],
-    options_hi: [
-      "ऑक्सीजन",
-      "नाइट्रोजन",
-      "आर्गन",
-      "हीलियम"
     ],
     answer: "Nitrogen"
   },
@@ -280,13 +231,7 @@ export const QUESTIONS = [
     subject: "Science",
     q_en: "Normal human blood pressure?",
     q_hi: "सामान्य मानव रक्तचाप कितना होता है?",
-    options_en: [
-      "120/80",
-      "100/60",
-      "140/90",
-      "110/70"
-    ],
-    options_hi: [
+    options: [
       "120/80",
       "100/60",
       "140/90",
@@ -296,7 +241,7 @@ export const QUESTIONS = [
   },
 
   // =========================
-  // ENGLISH (21–30)
+  // ENGLISH
   // =========================
 
   {
@@ -304,8 +249,12 @@ export const QUESTIONS = [
     subject: "English",
     q_en: "Synonym of Happy?",
     q_hi: "Happy का समानार्थी शब्द क्या है?",
-    options_en: ["Sad", "Joyful", "Angry", "Weak"],
-    options_hi: ["दुखी", "खुश", "गुस्सा", "कमज़ोर"],
+    options: [
+      "Sad",
+      "Joyful",
+      "Angry",
+      "Weak"
+    ],
     answer: "Joyful"
   },
 
@@ -314,12 +263,11 @@ export const QUESTIONS = [
     subject: "English",
     q_en: "Antonym of Strong?",
     q_hi: "Strong का विलोम शब्द क्या है?",
-    options_en: ["Weak", "Powerful", "Brave", "Tall"],
-    options_hi: [
-      "कमज़ोर",
-      "शक्तिशाली",
-      "बहादुर",
-      "लंबा"
+    options: [
+      "Weak",
+      "Powerful",
+      "Brave",
+      "Tall"
     ],
     answer: "Weak"
   },
@@ -328,14 +276,8 @@ export const QUESTIONS = [
     id: 23,
     subject: "English",
     q_en: "Plural of Child?",
-    q_hi: "Child का बहुवचन क्या है?",
-    options_en: [
-      "Childs",
-      "Children",
-      "Childrens",
-      "Childes"
-    ],
-    options_hi: [
+    q_hi: "Child ka bahuvachan kya hai?",
+    options: [
       "Childs",
       "Children",
       "Childrens",
@@ -348,14 +290,8 @@ export const QUESTIONS = [
     id: 24,
     subject: "English",
     q_en: "Correct spelling?",
-    q_hi: "सही वर्तनी कौन सी है?",
-    options_en: [
-      "Receive",
-      "Recieve",
-      "Receve",
-      "Recive"
-    ],
-    options_hi: [
+    q_hi: "सही spelling कौन सी है?",
+    options: [
       "Receive",
       "Recieve",
       "Receve",
@@ -368,9 +304,13 @@ export const QUESTIONS = [
     id: 25,
     subject: "English",
     q_en: "Past tense of Go?",
-    q_hi: "Go का भूतकाल क्या है?",
-    options_en: ["Gone", "Went", "Going", "Goes"],
-    options_hi: ["Gone", "Went", "Going", "Goes"],
+    q_hi: "Go ka past tense kya hai?",
+    options: [
+      "Gone",
+      "Went",
+      "Going",
+      "Goes"
+    ],
     answer: "Went"
   },
 
@@ -378,14 +318,8 @@ export const QUESTIONS = [
     id: 26,
     subject: "English",
     q_en: "Female of Lion?",
-    q_hi: "Lion का स्त्रीलिंग क्या है?",
-    options_en: [
-      "Lioness",
-      "Lions",
-      "She-lion",
-      "Liony"
-    ],
-    options_hi: [
+    q_hi: "Lion ka feminine kya hai?",
+    options: [
       "Lioness",
       "Lions",
       "She-lion",
@@ -399,8 +333,12 @@ export const QUESTIONS = [
     subject: "English",
     q_en: "Correct article: ___ Apple",
     q_hi: "सही article चुनें: ___ Apple",
-    options_en: ["A", "An", "The", "No article"],
-    options_hi: ["A", "An", "The", "No article"],
+    options: [
+      "A",
+      "An",
+      "The",
+      "No article"
+    ],
     answer: "An"
   },
 
@@ -408,14 +346,8 @@ export const QUESTIONS = [
     id: 28,
     subject: "English",
     q_en: "Plural of Mouse?",
-    q_hi: "Mouse का बहुवचन क्या है?",
-    options_en: [
-      "Mouses",
-      "Mice",
-      "Mices",
-      "Mouse"
-    ],
-    options_hi: [
+    q_hi: "Mouse ka plural kya hai?",
+    options: [
       "Mouses",
       "Mice",
       "Mices",
@@ -428,9 +360,13 @@ export const QUESTIONS = [
     id: 29,
     subject: "English",
     q_en: "Synonym of Large?",
-    q_hi: "Large का समानार्थी शब्द क्या है?",
-    options_en: ["Small", "Big", "Thin", "Short"],
-    options_hi: ["छोटा", "बड़ा", "पतला", "छोटा"],
+    q_hi: "Large ka synonym kya hai?",
+    options: [
+      "Small",
+      "Big",
+      "Thin",
+      "Short"
+    ],
     answer: "Big"
   },
 
@@ -438,9 +374,13 @@ export const QUESTIONS = [
     id: 30,
     subject: "English",
     q_en: "Opposite of Success?",
-    q_hi: "Success का विलोम क्या है?",
-    options_en: ["Failure", "Win", "Goal", "Pass"],
-    options_hi: ["असफलता", "जीत", "लक्ष्य", "पास"],
+    q_hi: "Success ka opposite kya hai?",
+    options: [
+      "Failure",
+      "Win",
+      "Goal",
+      "Pass"
+    ],
     answer: "Failure"
   }
 
