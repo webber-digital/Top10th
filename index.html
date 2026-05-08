@@ -7,45 +7,47 @@
     <title>Top10th Pro</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background: #020617; color: white; font-family: sans-serif; }
+        body { background: #020617; color: white; }
         .glass { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.08); }
     </style>
 </head>
-<body class="p-6 pb-24">
+<body class="p-6">
     <nav class="fixed top-0 left-0 w-full glass p-4 flex justify-between z-50">
         <h1 class="text-xl font-black text-sky-400">TOP10TH</h1>
-        <select id="langSwitch" class="bg-slate-900 text-[10px] rounded-full px-3 py-2 outline-none">
+        <select id="langSwitch" class="bg-slate-900 text-xs rounded-full px-3 py-1 outline-none border-none">
             <option value="en">English</option>
             <option value="hi">हिंदी</option>
         </select>
     </nav>
 
-    <section id="auth-view" class="min-h-screen flex items-center justify-center">
-        <div class="glass p-8 rounded-[40px] w-full max-w-xs text-center space-y-4">
-            <h2 class="text-2xl font-bold">Get Started</h2>
-            <input id="email" type="email" placeholder="Email" class="w-full bg-white/5 border border-white/10 p-4 rounded-2xl outline-none">
-            <input id="pass" type="password" placeholder="Password" class="w-full bg-white/5 border border-white/10 p-4 rounded-2xl outline-none">
-            <button id="loginBtn" class="w-full py-4 bg-sky-500 text-black font-black rounded-2xl">Login</button>
-        </div>
-    </section>
-
-    <main id="app-view" class="hidden pt-20 space-y-6">
-        <div class="glass p-8 rounded-[40px] text-center">
-            <span id="q-idx" class="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Question 1/75</span>
-            <h2 id="q-text" class="text-xl md:text-3xl font-bold mt-6 mb-12">Loading...</h2>
-            <div id="options" class="grid grid-cols-1 gap-4"></div>
-        </div>
-
+    <main id="app-view" class="hidden pt-24 max-w-xl mx-auto space-y-6">
         <div class="grid grid-cols-2 gap-4">
-            <button onclick="viewFreePdf()" class="glass py-5 rounded-3xl font-bold text-xs uppercase tracking-tighter">👁️ View Notes</button>
-            <button onclick="handlePremium()" class="glass py-5 rounded-3xl font-bold text-xs uppercase tracking-tighter text-yellow-500 border-yellow-500/20">🔓 Premium PDF</button>
+            <div class="glass p-4 rounded-3xl text-center">
+                <p class="text-[10px] text-gray-500 font-bold uppercase">Points</p>
+                <h3 id="score" class="text-xl font-black text-sky-400">0</h3>
+            </div>
+            <div class="glass p-4 rounded-3xl text-center">
+                <p class="text-[10px] text-gray-500 font-bold uppercase">Streak 🔥</p>
+                <h3 id="streak" class="text-xl font-black text-orange-500">0</h3>
+            </div>
+        </div>
+
+        <div id="quiz-container" class="glass p-8 rounded-[40px]">
+            <span id="q-idx" class="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Question 1/75</span>
+            <h2 id="q-text" class="text-xl font-bold mt-4 mb-10 leading-relaxed italic">Loading...</h2>
+            <div id="options" class="grid grid-cols-1 gap-4"></div>
         </div>
     </main>
 
-    <div id="pdf-modal" class="hidden fixed inset-0 bg-black z-[200] flex flex-col">
-        <div class="p-4 bg-slate-900 flex justify-between"><button onclick="closePdf()" class="text-red-400 font-bold">CLOSE</button></div>
-        <iframe id="pdf-frame" class="w-full flex-1 border-none"></iframe>
-    </div>
+    <section id="auth-view" class="min-h-screen flex items-center justify-center">
+       <div class="glass p-8 rounded-[40px] w-full max-w-xs text-center space-y-4">
+           <h2 class="text-2xl font-black">Login to Start</h2>
+           <p class="text-xs text-gray-500">Enter your credentials to track progress.</p>
+           <input id="email" type="email" placeholder="Email" class="w-full bg-white/5 border border-white/10 p-4 rounded-2xl outline-none">
+           <input id="pass" type="password" placeholder="Password" class="w-full bg-white/5 border border-white/10 p-4 rounded-2xl outline-none">
+           <button id="loginBtn" class="w-full py-4 bg-sky-500 text-black font-black rounded-2xl">Start Learning</button>
+       </div>
+    </section>
 
     <script type="module" src="app.js"></script>
 </body>
