@@ -31,309 +31,288 @@ const state = {
 // ELEMENTS
 // ======================
 
-const authView = document.getElementById("auth-view");
-const appView = document.getElementById("app-view");
+const authView =
+  document.getElementById("auth-view");
 
-const loginTab = document.getElementById("login-tab");
-const signupTab = document.getElementById("signup-tab");
+const appView =
+  document.getElementById("app-view");
 
-const loginStep1 = document.getElementById("login-step");
-const signupStep1 = document.getElementById("signup-step-1");
-const signupStep2 = document.getElementById("signup-step-2");
+const loginTab =
+  document.getElementById("login-tab");
 
-const gotoSignupStep2 =
-  document.getElementById("goto-signup-step-2");
+const signupTab =
+  document.getElementById("signup-tab");
 
-const createAccountBtn =
-  document.getElementById("createAccountBtn");
+const loginBox =
+  document.getElementById("login-box");
+
+const signupBox =
+  document.getElementById("signup-box");
+
+const signupStep1 =
+  document.getElementById("signup-step-1");
+
+const signupStep2 =
+  document.getElementById("signup-step-2");
+
+const continueBtn =
+  document.getElementById("continue-btn");
 
 const loginBtn =
-  document.getElementById("loginBtn");
+  document.getElementById("login-btn");
 
-const qText = document.getElementById("q-text");
-const optionsBox =
-  document.getElementById("options");
+const signupBtn =
+  document.getElementById("signup-btn");
 
-const qIdx =
-  document.getElementById("q-idx");
-
-const streakTag =
-  document.getElementById("streak-tag");
+const logoutBtn =
+  document.getElementById("logout-btn");
 
 const displayName =
   document.getElementById("display-name");
 
-const highScore =
-  document.getElementById("high-score");
+const xpText =
+  document.getElementById("xp");
+
+const streakText =
+  document.getElementById("streak");
+
+const premiumTag =
+  document.getElementById("premium-tag");
+
+const questionCount =
+  document.getElementById("question-count");
+
+const subjectTag =
+  document.getElementById("subject-tag");
+
+const questionText =
+  document.getElementById("question");
+
+const optionsBox =
+  document.getElementById("options");
 
 // ======================
 // TAB SWITCH
 // ======================
 
-loginTab?.addEventListener("click", () => {
+loginTab.addEventListener("click", () => {
 
-  loginTab.classList.add(
-    "bg-sky-500",
-    "text-black"
-  );
+  loginTab.classList.add("toggle-active");
+  signupTab.classList.remove("toggle-active");
 
-  signupTab.classList.remove(
-    "bg-sky-500",
-    "text-black"
-  );
+  loginBox.classList.remove("hidden");
+  signupBox.classList.add("hidden");
 
-  loginStep1.classList.remove("hidden");
+});
+
+signupTab.addEventListener("click", () => {
+
+  signupTab.classList.add("toggle-active");
+  loginTab.classList.remove("toggle-active");
+
+  signupBox.classList.remove("hidden");
+  loginBox.classList.add("hidden");
+
+});
+
+// ======================
+// SIGNUP STEP
+// ======================
+
+continueBtn.addEventListener("click", () => {
+
+  const email =
+    document
+      .getElementById("signup-email")
+      .value
+      .trim();
+
+  const password =
+    document
+      .getElementById("signup-password")
+      .value
+      .trim();
+
+  if (!email || !password) {
+    alert("Fill all fields");
+    return;
+  }
+
+  if (!email.includes("@")) {
+    alert("Enter valid email");
+    return;
+  }
+
+  if (password.length < 6) {
+    alert("Password must be 6+ chars");
+    return;
+  }
 
   signupStep1.classList.add("hidden");
-  signupStep2.classList.add("hidden");
-
-});
-
-signupTab?.addEventListener("click", () => {
-
-  signupTab.classList.add(
-    "bg-sky-500",
-    "text-black"
-  );
-
-  loginTab.classList.remove(
-    "bg-sky-500",
-    "text-black"
-  );
-
-  loginStep1.classList.add("hidden");
-
-  signupStep1.classList.remove("hidden");
-  signupStep2.classList.add("hidden");
+  signupStep2.classList.remove("hidden");
 
 });
 
 // ======================
-// SIGNUP STEP 1
+// SIGNUP
 // ======================
 
-gotoSignupStep2?.addEventListener(
-  "click",
-  () => {
+signupBtn.addEventListener("click", async () => {
 
-    const email =
-      document
-        .getElementById("signup-email")
-        .value
-        .trim();
+  const email =
+    document
+      .getElementById("signup-email")
+      .value
+      .trim();
 
-    const password =
-      document
-        .getElementById("signup-password")
-        .value
-        .trim();
+  const password =
+    document
+      .getElementById("signup-password")
+      .value
+      .trim();
 
-    if (!email || !password) {
-      alert("Email & password daalo");
-      return;
-    }
+  const fullName =
+    document
+      .getElementById("signup-name")
+      .value
+      .trim();
 
-    if (password.length < 6) {
-      alert("Password minimum 6 characters");
-      return;
-    }
-
-    signupStep1.classList.add("hidden");
-    signupStep2.classList.remove("hidden");
-
+  if (
+    !email ||
+    !password ||
+    !fullName
+  ) {
+    alert("All fields required");
+    return;
   }
-);
 
-// ======================
-// CREATE ACCOUNT
-// ======================
+  signupBtn.disabled = true;
+  signupBtn.innerText = "Creating...";
 
-createAccountBtn?.addEventListener(
-  "click",
-  async () => {
+  try {
 
-    const email =
-      document
-        .getElementById("signup-email")
-        .value
-        .trim();
+    const { data, error } =
+      await supabase.auth.signUp({
+        email,
+        password,
+      });
 
-    const password =
-      document
-        .getElementById("signup-password")
-        .value
-        .trim();
+    if (error) throw error;
 
-    const fullName =
-      document
-        .getElementById("signup-name")
-        .value
-        .trim();
+    const user = data.user;
 
-    const username =
-      document
-        .getElementById("signup-username")
-        .value
-        .trim();
-
-    if (
-      !fullName ||
-      !username
-    ) {
-      alert("Name & username daalo");
-      return;
+    if (!user) {
+      throw new Error("User not found");
     }
 
-    createAccountBtn.disabled = true;
-    createAccountBtn.innerText =
-      "Creating...";
-
-    try {
-
-      // AUTH CREATE
-
-      const { data, error } =
-        await supabase.auth.signUp({
-          email,
-          password,
-        });
-
-      if (error) throw error;
-
-      const user = data.user;
-
-      if (!user) {
-        throw new Error(
-          "User create failed"
-        );
-      }
-
-      // PROFILE INSERT
-
-      const {
-        error: profileError,
-      } = await supabase
+    const { error: profileError } =
+      await supabase
         .from("profiles")
         .insert({
           id: user.id,
-
           full_name: fullName,
-
-          username: username,
-
           email: email,
-
           xp: 0,
-
           streak: 0,
-
           solved: 0,
-
           premium: false,
         });
 
-      if (profileError)
-        throw profileError;
-
-      alert(
-        "Account created successfully ✅"
-      );
-
-      signupStep2.classList.add("hidden");
-
-      loginStep1.classList.remove(
-        "hidden"
-      );
-
-      loginTab.classList.add(
-        "bg-sky-500",
-        "text-black"
-      );
-
-      signupTab.classList.remove(
-        "bg-sky-500",
-        "text-black"
-      );
-
-    } catch (err) {
-
-      console.error(err);
-
-      alert(err.message);
-
+    if (profileError) {
+      throw profileError;
     }
 
-    createAccountBtn.disabled = false;
+    alert("Account created ✅");
 
-    createAccountBtn.innerText =
-      "Create Account 🚀";
+    signupBox.classList.add("hidden");
+    loginBox.classList.remove("hidden");
+
+    loginTab.classList.add("toggle-active");
+    signupTab.classList.remove("toggle-active");
+
+  } catch (err) {
+
+    console.error(err);
+
+    alert(err.message);
 
   }
-);
+
+  signupBtn.disabled = false;
+  signupBtn.innerText =
+    "Create My Account 🚀";
+
+});
 
 // ======================
 // LOGIN
 // ======================
 
-loginBtn?.addEventListener(
-  "click",
-  async () => {
+loginBtn.addEventListener("click", async () => {
 
-    const email =
-      document
-        .getElementById("login-email")
-        .value
-        .trim();
+  const email =
+    document
+      .getElementById("login-email")
+      .value
+      .trim();
 
-    const password =
-      document
-        .getElementById("login-password")
-        .value
-        .trim();
+  const password =
+    document
+      .getElementById("login-password")
+      .value
+      .trim();
 
-    if (!email || !password) {
-      alert(
-        "Email & password daalo"
-      );
-      return;
+  if (
+    email === "" ||
+    password === ""
+  ) {
+    alert("Email & password required");
+    return;
+  }
+
+  if (!email.includes("@")) {
+    alert("Enter valid email");
+    return;
+  }
+
+  if (password.length < 6) {
+    alert("Password must be 6+ chars");
+    return;
+  }
+
+  loginBtn.disabled = true;
+  loginBtn.innerText = "Loading...";
+
+  try {
+
+    const { data, error } =
+      await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+    if (error) {
+      throw error;
     }
 
-    loginBtn.disabled = true;
+    state.user = data.user;
 
-    loginBtn.innerText =
-      "Loading...";
+    await loadProfile();
 
-    try {
+    showApp();
 
-      const { data, error } =
-        await supabase.auth.signInWithPassword({
-          email,
-          password,
-        });
+  } catch (err) {
 
-      if (error) throw error;
+    console.error(err);
 
-      state.user = data.user;
-
-      await loadProfile();
-
-      showApp();
-
-    } catch (err) {
-
-      console.error(err);
-
-      alert(err.message);
-
-    }
-
-    loginBtn.disabled = false;
-
-    loginBtn.innerText =
-      "Login";
+    alert(err.message);
 
   }
-);
+
+  loginBtn.disabled = false;
+  loginBtn.innerText = "Login →";
+
+});
 
 // ======================
 // LOAD PROFILE
@@ -358,8 +337,16 @@ async function loadProfile() {
   displayName.innerText =
     data.full_name || "Student";
 
-  highScore.innerText =
+  xpText.innerText =
     data.xp || 0;
+
+  streakText.innerText =
+    data.streak || 0;
+
+  premiumTag.innerText =
+    data.premium
+      ? "PREMIUM"
+      : "FREE";
 
 }
 
@@ -387,11 +374,8 @@ function renderQuestion() {
     state.currentQuestion >=
     state.questions.length
   ) {
-
     finishQuiz();
-
     return;
-
   }
 
   const q =
@@ -399,18 +383,18 @@ function renderQuestion() {
       state.currentQuestion
     ];
 
-  qIdx.innerText =
+  questionCount.innerText =
     `Question ${
       state.currentQuestion + 1
     }/${state.questions.length}`;
 
-  qText.innerText =
+  subjectTag.innerText =
+    q.sub;
+
+  questionText.innerText =
     state.language === "hi"
       ? q.q_hi
       : q.q_en;
-
-  streakTag.innerText =
-    `STREAK: ${state.streak} 🔥`;
 
   optionsBox.innerHTML = "";
 
@@ -424,17 +408,8 @@ function renderQuestion() {
     const btn =
       document.createElement("button");
 
-    btn.className = `
-      glass
-      p-5
-      rounded-3xl
-      text-left
-      font-bold
-      transition-all
-      hover:border-sky-500
-      hover:bg-white/5
-      active:scale-[0.98]
-    `;
+    btn.className =
+      "option-btn";
 
     btn.innerText = option;
 
@@ -463,7 +438,7 @@ function checkAnswer(
 
   const allBtns =
     document.querySelectorAll(
-      "#options button"
+      ".option-btn"
     );
 
   allBtns.forEach((btn) => {
@@ -472,11 +447,9 @@ function checkAnswer(
 
   if (selected === correct) {
 
-    clickedBtn.style.borderColor =
-      "#22c55e";
-
-    clickedBtn.style.background =
-      "rgba(34,197,94,0.15)";
+    clickedBtn.classList.add(
+      "correct"
+    );
 
     state.score += 10;
 
@@ -484,11 +457,9 @@ function checkAnswer(
 
   } else {
 
-    clickedBtn.style.borderColor =
-      "#ef4444";
-
-    clickedBtn.style.background =
-      "rgba(239,68,68,0.15)";
+    clickedBtn.classList.add(
+      "wrong"
+    );
 
     state.streak = 0;
 
@@ -497,18 +468,17 @@ function checkAnswer(
       if (
         btn.innerText === correct
       ) {
-
-        btn.style.borderColor =
-          "#22c55e";
-
+        btn.classList.add(
+          "correct"
+        );
       }
 
     });
 
   }
 
-  streakTag.innerText =
-    `STREAK: ${state.streak} 🔥`;
+  streakText.innerText =
+    state.streak;
 
   setTimeout(() => {
 
@@ -526,40 +496,29 @@ function checkAnswer(
 
 async function finishQuiz() {
 
-  const finalXP = state.score;
-
   document.getElementById(
     "quiz-box"
   ).innerHTML = `
-    <div class="text-center py-10">
+  
+  <div class="text-center py-10">
 
-      <h2 class="text-5xl font-black text-sky-400 mb-4">
-        Quiz Completed 🎉
-      </h2>
+    <h2 class="text-5xl font-black text-sky-400 mb-4">
+      Quiz Completed 🎉
+    </h2>
 
-      <p class="text-2xl font-bold mb-2">
-        XP Earned: ${finalXP}
-      </p>
+    <p class="text-2xl font-bold mb-3">
+      XP Earned: ${state.score}
+    </p>
 
-      <p class="text-gray-400 mb-8">
-        Keep practicing daily 🔥
-      </p>
+    <button
+      onclick="location.reload()"
+      class="primary-btn mt-5"
+    >
+      Play Again
+    </button>
 
-      <button
-        onclick="location.reload()"
-        class="
-          bg-sky-500
-          text-black
-          px-8
-          py-4
-          rounded-2xl
-          font-black
-        "
-      >
-        Play Again
-      </button>
-
-    </div>
+  </div>
+  
   `;
 
   try {
@@ -570,19 +529,17 @@ async function finishQuiz() {
 
         xp:
           (state.profile.xp || 0) +
-          finalXP,
+          state.score,
 
-        streak: state.streak,
+        streak:
+          state.streak,
 
         solved:
           (state.profile.solved || 0) +
           state.questions.length,
 
       })
-      .eq(
-        "id",
-        state.user.id
-      );
+      .eq("id", state.user.id);
 
   } catch (err) {
 
@@ -591,6 +548,21 @@ async function finishQuiz() {
   }
 
 }
+
+// ======================
+// LOGOUT
+// ======================
+
+logoutBtn.addEventListener(
+  "click",
+  async () => {
+
+    await supabase.auth.signOut();
+
+    location.reload();
+
+  }
+);
 
 // ======================
 // SESSION CHECK
@@ -643,4 +615,4 @@ function shuffleArray(array) {
 
   return array;
 
-  }
+}
